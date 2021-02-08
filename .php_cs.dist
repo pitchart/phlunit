@@ -1,0 +1,29 @@
+<?php
+
+$finder = PhpCsFixer\Finder::create()
+    ->in(__DIR__.'/src/')
+;
+
+$config = new PhpCsFixer\Config();
+
+return $config->setRules([
+    '@PSR2' => true,
+    'array_syntax' => ['syntax' => 'short'],
+    'concat_space' => ['spacing' => 'one'],
+    'class_keyword_remove' => false,
+    'no_unreachable_default_argument_value' => false,
+    'braces' => [ 'allow_single_line_closure' => true, ],
+    'heredoc_to_nowdoc' => false,
+    'phpdoc_summary' => false,
+    'increment_style' => ['style' => 'post'],
+    'yoda_style' => false,
+    'ordered_imports' => ['sort_algorithm' => 'alpha'],
+    'native_function_invocation' => [ 'include' => ['@internal', '@compiler_optimized'],],
+    'native_constant_invocation' => true,
+    'no_alias_functions' => ['sets' => ['@internal', '@mbreg']],
+    'no_unused_imports' => true,
+    'declare_strict_types' => true,
+    'phpdoc_align' => ['align' => 'left'],
+])
+->setRiskyAllowed(true)
+->setFinder($finder);

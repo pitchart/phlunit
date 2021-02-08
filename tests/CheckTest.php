@@ -1,0 +1,79 @@
+<?php
+
+namespace Tests\Pitchart\Phlunit;
+
+use GuzzleHttp\Psr7\Response;
+use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\Constraint\Exception as ExceptionConstraint;
+use PHPUnit\Framework\ExpectationFailedException;
+use PHPUnit\Framework\TestCase;
+use Pitchart\Phlunit\Checks\ArrayCheck;
+use Pitchart\Phlunit\Checks\BooleanCheck;
+use Pitchart\Phlunit\Checks\CallableCheck;
+use Pitchart\Phlunit\Checks\CollectionCheck;
+use Pitchart\Phlunit\Checks\GenericCheck;
+use Pitchart\Phlunit\Checks\DateTimeCheck;
+use Pitchart\Phlunit\Checks\IntegerCheck;
+use Pitchart\Phlunit\Checks\ResponseCheck;
+use Pitchart\Phlunit\Checks\StringCheck;
+use Pitchart\Phlunit\Check;
+use Psr\Http\Message\ResponseInterface;
+use Tests\Pitchart\Phlunit\Fixture\Custom;
+use Tests\Pitchart\Phlunit\Fixture\CustomAssertion;
+
+class CheckTest extends TestCase
+{
+    public function test_can_register_assertions_for_a_given_class()
+    {
+        Check::registerAssertionsFor(Custom::class, CustomAssertion::class);
+        Check::that(Check::that(new Custom))->isAnInstanceOf(CustomAssertion::class);
+    }
+
+    /**
+     * @param $sut
+     * @param $assertionClass
+     * @dataProvider assertionMappingProvider
+     */
+    public function test_maps_checks_to_dedicated_assertions_on_build($sut, $assertionClass)
+    {
+        $check = Check::that($sut);
+
+        Check::that($check)->isAnInstanceOf($assertionClass);
+    }
+
+    public function assertionMappingProvider()
+    {
+        yield from [
+            'bool' => [true, BooleanCheck::class],
+            'string' => ['sut', StringCheck::class],
+            'numeric string' => ['42', StringCheck::class],
+            'int' => [42, IntegerCheck::class],
+            'float' => [4.5, GenericCheck::class],
+            'array' => [[1, 2], ArrayCheck::class],
+            'iterable' => [new \ArrayObject([1, 2]), CollectionCheck::class],
+            'callable' => [function() { return 1; }, CallableCheck::class],
+            ResponseInterface::class => [new Response(200), ResponseCheck::class],
+            \DateTimeInterface::class => [new \DateTimeImmutable(), DateTimeCheck::class],
+        ];
+    }
+
+    /**
+     * @test
+     */
+    public function should_check_for_types()
+    {
+        $resource = fopen('php://temp', 'r');
+        Check::that(1)->isInt();
+        Check::that('string')->isString();
+        Check::that(1.)->isFloat();
+        Check::that($resource)->isResource();
+        Check::that('1')->isNumeric()->isScalar();
+        Check::that([1])->isArray()->isIterable();
+        Check::that(false)->isBool();
+        Check::that(new \stdClass())->isObject()->isAnInstanceOf(\stdClass::class);
+        Check::that(function ($x) { return $x; })->isCallable();
+
+        fclose($resource);
+    }
+
+}
