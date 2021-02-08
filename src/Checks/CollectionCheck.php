@@ -5,13 +5,14 @@ namespace Pitchart\Phlunit\Checks;
 
 use PHPUnit\Framework\Assert;
 use Pitchart\Phlunit\Checks\Mixin\TypeCheck;
+use Pitchart\Phlunit\Checks\Mixin\WithMessage;
 use Pitchart\Phlunit\Constraint\Arrays\ContainsNoDuplicateItem;
 use Pitchart\Phlunit\Constraint\Arrays\ContainsSet;
 use Pitchart\Phlunit\Constraint\Arrays\IsSubset;
 
 class CollectionCheck implements FluentCheck
 {
-    use TypeCheck;
+    use TypeCheck, WithMessage;
     /**
      * @var iterable
      */
@@ -27,65 +28,75 @@ class CollectionCheck implements FluentCheck
         $this->value = $collection;
     }
 
-    public function isEmpty($message = ''): self
+    public function isEmpty(): self
     {
-        Assert::assertEmpty($this->value, $message);
+        Assert::assertEmpty($this->value, $this->message);
+        $this->resetMessage();
         return $this;
     }
 
-    public function isNotEmpty($message = ''): self
+    public function isNotEmpty(): self
     {
-        Assert::assertNotEmpty($this->value, $message);
+        Assert::assertNotEmpty($this->value, $this->message);
+        $this->resetMessage();
         return $this;
     }
 
-    public function contains($expected, $message = ''): self
+    public function contains($expected): self
     {
-        Assert::assertContains($expected, $this->value, $message);
+        Assert::assertContains($expected, $this->value, $this->message);
+        $this->resetMessage();
         return $this;
     }
 
-    public function containsOnly(string $type, $message = ''): self
+    public function containsOnly(string $type): self
     {
-        Assert::assertContainsOnly($type, $this->value, null, $message);
+        Assert::assertContainsOnly($type, $this->value, null, $this->message);
+        $this->resetMessage();
         return $this;
     }
 
-    public function containsOnlyInstancesOf(string $className, string $message = ''): self
+    public function containsOnlyInstancesOf(string $className): self
     {
-        Assert::assertContainsOnlyInstancesOf($className, $this->value, $message);
+        Assert::assertContainsOnlyInstancesOf($className, $this->value, $this->message);
+        $this->resetMessage();
         return $this;
     }
 
-    public function hasLength(int $length, $message = ''): self
+    public function hasLength(int $length): self
     {
-        Assert::assertCount($length, $this->value, $message);
+        Assert::assertCount($length, $this->value, $this->message);
+        $this->resetMessage();
         return $this;
     }
 
-    public function hasNotLength(int $length, $message = ''): self
+    public function hasNotLength(int $length): self
     {
-        Assert::assertNotCount($length, $this->value, $message);
+        Assert::assertNotCount($length, $this->value, $this->message);
+        $this->resetMessage();
         return $this;
     }
 
-    public function isSubsetOf(iterable $set, $message = ''): self
+    public function isSubsetOf(iterable $set): self
     {
         $constraint = new IsSubset($set);
-        Assert::assertThat($this->value, $constraint, $message);
+        $this->resetMessage();
+        Assert::assertThat($this->value, $constraint, $this->message);
         return $this;
     }
 
-    public function containsSet(iterable $subset, $message = ''): self
+    public function containsSet(iterable $subset): self
     {
-        $constraint = new ContainsSet($subset, $message);
-        Assert::assertThat($this->value, $constraint, $message);
+        $constraint = new ContainsSet($subset, $this->message);
+        Assert::assertThat($this->value, $constraint, $this->message);
+        $this->resetMessage();
         return $this;
     }
 
-    public function containsNoDuplicateItem($message = ''): self
+    public function containsNoDuplicateItem(): self
     {
-        Assert::assertThat($this->value, new ContainsNoDuplicateItem(), $message);
+        Assert::assertThat($this->value, new ContainsNoDuplicateItem(), $this->message);
+        $this->resetMessage();
         return $this;
     }
 }

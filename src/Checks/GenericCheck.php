@@ -5,10 +5,11 @@ namespace Pitchart\Phlunit\Checks;
 
 use PHPUnit\Framework\Assert;
 use Pitchart\Phlunit\Checks\Mixin\TypeCheck;
+use Pitchart\Phlunit\Checks\Mixin\WithMessage;
 
 class GenericCheck implements FluentCheck
 {
-    use TypeCheck;
+    use TypeCheck, WithMessage;
 
     /**
      * @var mixed
@@ -28,24 +29,28 @@ class GenericCheck implements FluentCheck
     public function isEqualTo($expected, string $message = ''): self
     {
         Assert::assertSame($expected, $this->value, $message);
+        $this->resetMessage();
         return $this;
     }
 
     public function isNotEqualTo($expected, string $message = ''): self
     {
         Assert::assertNotEquals($expected, $this->value, $message);
+        $this->resetMessage();
         return $this;
     }
 
     public function isEmpty($message = ''): self
     {
         Assert::assertEmpty($this->value, $message);
+        $this->resetMessage();
         return $this;
     }
 
     public function isNotEmpty($message = ''): self
     {
         Assert::assertNotEmpty($this->value, $message);
+        $this->resetMessage();
         return $this;
     }
 }

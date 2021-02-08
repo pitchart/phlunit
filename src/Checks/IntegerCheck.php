@@ -5,10 +5,11 @@ namespace Pitchart\Phlunit\Checks;
 
 use PHPUnit\Framework\Assert;
 use Pitchart\Phlunit\Checks\Mixin\TypeCheck;
+use Pitchart\Phlunit\Checks\Mixin\WithMessage;
 
 class IntegerCheck implements FluentCheck
 {
-    use TypeCheck;
+    use TypeCheck, WithMessage;
 
     /**
      * @var mixed
@@ -25,51 +26,59 @@ class IntegerCheck implements FluentCheck
         $this->value = $value;
     }
 
-    public function isEqualTo($expected, string $message = ''): self
+    public function isEqualTo($expected): self
     {
-        Assert::assertSame($expected, $this->value, $message);
+        Assert::assertSame($expected, $this->value, $this->message);
+        $this->resetMessage();
         return $this;
     }
 
-    public function isNotEqualTo($expected, string $message = ''): self
+    public function isNotEqualTo($expected): self
     {
-        Assert::assertNotSame($expected, $this->value, $message);
+        Assert::assertNotSame($expected, $this->value, $this->message);
+        $this->resetMessage();
         return $this;
     }
 
-    public function isEmpty($message = ''): self
+    public function isEmpty(): self
     {
-        Assert::assertEmpty($this->value, $message);
+        Assert::assertEmpty($this->value, $this->message);
+        $this->resetMessage();
         return $this;
     }
 
-    public function isNotEmpty($message = ''): self
+    public function isNotEmpty(): self
     {
-        Assert::assertNotEmpty($this->value, $message);
+        Assert::assertNotEmpty($this->value, $this->message);
+        $this->resetMessage();
         return $this;
     }
 
-    public function isGreaterThan($expected, string $message = ''): self
+    public function isGreaterThan($expected): self
     {
-        Assert::assertGreaterThan($expected, $this->value, $message);
+        Assert::assertGreaterThan($expected, $this->value, $this->message);
+        $this->resetMessage();
         return $this;
     }
 
-    public function isGreaterThanOrEqualTo($expected, string $message = ''): self
+    public function isGreaterThanOrEqualTo($expected): self
     {
-        Assert::assertGreaterThanOrEqual($expected, $this->value, $message);
+        Assert::assertGreaterThanOrEqual($expected, $this->value, $this->message);
+        $this->resetMessage();
         return $this;
     }
 
-    public function isLessThan($expected, string $message = ''): self
+    public function isLessThan($expected): self
     {
-        Assert::assertLessThan($expected, $this->value, $message);
+        Assert::assertLessThan($expected, $this->value, $this->message);
+        $this->resetMessage();
         return $this;
     }
 
-    public function isLessThanOrEqualTo($expected, string $message = ''): self
+    public function isLessThanOrEqualTo($expected): self
     {
-        Assert::assertLessThanOrEqual($expected, $this->value, $message);
+        Assert::assertLessThanOrEqual($expected, $this->value, $this->message);
+        $this->resetMessage();
         return $this;
     }
 }

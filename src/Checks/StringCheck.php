@@ -8,6 +8,7 @@ use PHPUnit\Framework\Constraint\LogicalNot;
 use Pitchart\Phlunit\Checks\Converter\ToDateTime;
 use Pitchart\Phlunit\Checks\Converter\ToInteger;
 use Pitchart\Phlunit\Checks\Mixin\TypeCheck;
+use Pitchart\Phlunit\Checks\Mixin\WithMessage;
 use Pitchart\Phlunit\Constraint\String\EndsWith;
 use Pitchart\Phlunit\Constraint\String\IsBlank;
 use Pitchart\Phlunit\Constraint\String\IsDigits;
@@ -17,7 +18,8 @@ use Pitchart\Phlunit\Constraint\String\StartsWith;
 
 class StringCheck implements FluentCheck
 {
-    use TypeCheck, ToDateTime, ToInteger;
+    use TypeCheck, WithMessage,
+        ToDateTime, ToInteger;
 
     /**
      * @var mixed
@@ -39,127 +41,143 @@ class StringCheck implements FluentCheck
         $this->value = $value;
     }
 
-    public function isEqualTo(string $expected, string $message = ''): self
+    public function isEqualTo(string $expected): self
     {
         if ($this->ignoreCase) {
-            Assert::assertEqualsIgnoringCase($expected, $this->value, $message);
+            Assert::assertEqualsIgnoringCase($expected, $this->value, $this->message);
         } else {
-            Assert::assertSame($expected, $this->value, $message);
+            Assert::assertSame($expected, $this->value, $this->message);
         }
+        $this->resetMessage();
         return $this;
     }
 
-    public function isNotEqualTo(string $expected, string $message = ''): self
+    public function isNotEqualTo(string $expected): self
     {
-        Assert::assertNotEquals($expected, $this->value, $message, 0.0, 10, false, $this->ignoreCase);
+        Assert::assertNotEquals($expected, $this->value, $this->message, 0.0, 10, false, $this->ignoreCase);
+        $this->resetMessage();
         return $this;
     }
 
-    public function isEmpty(string $message = ''): self
+    public function isEmpty(): self
     {
-        Assert::assertEmpty($this->value, $message);
+        Assert::assertEmpty($this->value, $this->message);
+        $this->resetMessage();
         return $this;
     }
 
-    public function isNotEmpty(string $message = ''): self
+    public function isNotEmpty(): self
     {
-        Assert::assertNotEmpty($this->value, $message);
+        Assert::assertNotEmpty($this->value, $this->message);
+        $this->resetMessage();
         return $this;
     }
 
-    public function isBlank(string $message = ''): self
+    public function isBlank(): self
     {
-        Assert::assertThat($this->value, new IsBlank(), $message);
+        Assert::assertThat($this->value, new IsBlank(), $this->message);
+        $this->resetMessage();
         return $this;
     }
 
-    public function isNotBlank(string $message = ''): self
+    public function isNotBlank(): self
     {
-        Assert::assertThat($this->value, new LogicalNot(new IsBlank()), $message);
+        Assert::assertThat($this->value, new LogicalNot(new IsBlank()), $this->message);
+        $this->resetMessage();
         return $this;
     }
 
-    public function isGreaterThan(string $expected, string $message = ''): self
+    public function isGreaterThan(string $expected): self
     {
-        Assert::assertGreaterThan($expected, $this->value, $message);
+        Assert::assertGreaterThan($expected, $this->value, $this->message);
+        $this->resetMessage();
         return $this;
     }
 
-    public function isGreaterThanOrEqualTo(string $expected, string $message = ''): self
+    public function isGreaterThanOrEqualTo(string $expected): self
     {
-        Assert::assertGreaterThanOrEqual($expected, $this->value, $message);
+        Assert::assertGreaterThanOrEqual($expected, $this->value, $this->message);
+        $this->resetMessage();
         return $this;
     }
 
-    public function isLessThan(string $expected, string $message = ''): self
+    public function isLessThan(string $expected): self
     {
-        Assert::assertLessThan($expected, $this->value, $message);
+        Assert::assertLessThan($expected, $this->value, $this->message);
+        $this->resetMessage();
         return $this;
     }
 
-    public function isLessThanOrEqualTo(string $expected, string $message = ''): self
+    public function isLessThanOrEqualTo(string $expected): self
     {
-        Assert::assertLessThanOrEqual($expected, $this->value, $message);
+        Assert::assertLessThanOrEqual($expected, $this->value, $this->message);
+        $this->resetMessage();
         return $this;
     }
 
-    public function contains(string $expected, string $message = ''): self
+    public function contains(string $expected): self
     {
         if ($this->ignoreCase) {
-            Assert::assertStringContainsStringIgnoringCase($expected, $this->value, $message);
+            Assert::assertStringContainsStringIgnoringCase($expected, $this->value, $this->message);
         } else {
-            Assert::assertStringContainsString($expected, $this->value, $message);
+            Assert::assertStringContainsString($expected, $this->value, $this->message);
         }
-
+        $this->resetMessage();
         return $this;
     }
 
-    public function startsWith(string $expected, string $message = ''): self
+    public function startsWith(string $expected): self
     {
         if ($this->ignoreCase) {
-            Assert::assertThat($this->value, new StartsWith($expected), $message);
+            Assert::assertThat($this->value, new StartsWith($expected), $this->message);
         } else {
-            Assert::assertStringStartsWith($expected, $this->value, $message);
+            Assert::assertStringStartsWith($expected, $this->value, $this->message);
         }
+        $this->resetMessage();
         return $this;
     }
 
-    public function endsWith(string $expected, string $message = ''): self
+    public function endsWith(string $expected): self
     {
         if ($this->ignoreCase) {
-            Assert::assertThat($this->value, new EndsWith($expected), $message);
+            Assert::assertThat($this->value, new EndsWith($expected), $this->message);
         } else {
-            Assert::assertStringEndsWith($expected, $this->value, $message);
+            Assert::assertStringEndsWith($expected, $this->value, $this->message);
         }
+        $this->resetMessage();
         return $this;
     }
 
-    public function isDigits(string $message = ''): self
+    public function isDigits(): self
     {
-        Assert::assertThat($this->value, new IsDigits(), $message);
+        Assert::assertThat($this->value, new IsDigits(), $this->message);
+        $this->resetMessage();
         return $this;
     }
 
-    public function isLetters(string $message = ''): self
+    public function isLetters(): self
     {
-        Assert::assertThat($this->value, new IsLetters(), $message);
+        Assert::assertThat($this->value, new IsLetters(), $this->message);
+        $this->resetMessage();
         return $this;
     }
 
-    public function isWhitespaces(string $message = ''): self
+    public function isWhitespaces(): self
     {
-        return $this->isBlank($message);
+        return $this->isBlank();
     }
 
-    public function isHexadecimal(string $message = ''): self
+    public function isHexadecimal(): self
     {
-        Assert::assertThat($this->value, new IsHexadecimal(), $message);
+        Assert::assertThat($this->value, new IsHexadecimal(), $this->message);
+        $this->resetMessage();
         return $this;
     }
 
-    public function matches(string $pattern, string $message = ''): self
+    public function matches(string $pattern): self
     {
-        Assert::assertRegExp($pattern, $this->value, $message);
+        Assert::assertRegExp($pattern, $this->value, $this->message);
+        $this->resetMessage();
         return $this;
     }
 

@@ -12,15 +12,15 @@ class ArrayCheck extends CollectionCheck
         parent::__construct($collection);
     }
 
-    public function hasElementAt($expected, $message = ''): self
+    public function hasElementAt($expected): self
     {
-        Assert::assertArrayHasKey($expected, $this->value, $message);
+        Assert::assertArrayHasKey($expected, $this->value, $this->message);
         return $this;
     }
 
-    public function hasNoElementAt($expected, $message = ''): self
+    public function hasNoElementAt($expected): self
     {
-        Assert::assertArrayNotHasKey($expected, $this->value, $message);
+        Assert::assertArrayNotHasKey($expected, $this->value, $this->message);
         return $this;
     }
 }
