@@ -1,8 +1,7 @@
-<?php
+<?php declare(strict_types=1);
 
 
 namespace Pitchart\Phlunit\Checks\Mixin;
-
 
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\Constraint;
@@ -33,5 +32,4 @@ trait ConstraintCheck
     {
         return $this->hasNot($constraint);
     }
-
 }

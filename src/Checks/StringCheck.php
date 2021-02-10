@@ -3,11 +3,11 @@
 
 namespace Pitchart\Phlunit\Checks;
 
-use Pitchart\Phlunit\Checks\Mixin\ConstraintCheck;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\LogicalNot;
 use Pitchart\Phlunit\Checks\Converter\ToDateTime;
 use Pitchart\Phlunit\Checks\Converter\ToInteger;
+use Pitchart\Phlunit\Checks\Mixin\ConstraintCheck;
 use Pitchart\Phlunit\Checks\Mixin\TypeCheck;
 use Pitchart\Phlunit\Checks\Mixin\WithMessage;
 use Pitchart\Phlunit\Constraint\String\EndsWith;

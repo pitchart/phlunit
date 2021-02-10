@@ -7,10 +7,10 @@ trait WithMessage
 {
     public function __get($name)
     {
-        if (in_array($name, ['and', 'which'])) {
+        if (\in_array($name, ['and', 'which'])) {
             return $this;
         }
-        throw new \Error(sprintf ('Undefined property: %s::$%s', get_class($this), $name));
+        throw new \Error(\sprintf('Undefined property: %s::$%s', \get_class($this), $name));
     }
 
 

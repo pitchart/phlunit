@@ -3,9 +3,9 @@
 
 namespace Pitchart\Phlunit\Checks;
 
-use Pitchart\Phlunit\Checks\Mixin\ConstraintCheck;
 use PHPUnit\Framework\Assert;
 use Pitchart\Phlunit\Checks\HttpResponse\HttpHeaderCheck;
+use Pitchart\Phlunit\Checks\Mixin\ConstraintCheck;
 use Pitchart\Phlunit\Checks\Mixin\TypeCheck;
 use Pitchart\Phlunit\Checks\Mixin\WithMessage;
 use Pitchart\Phlunit\Constraint\HttpResponse\HasContentType;
