@@ -4,15 +4,13 @@
 namespace Pitchart\Phlunit\Checks;
 
 use PHPUnit\Framework\Assert;
-use PHPUnit\Framework\Constraint\Exception as ExceptionConstraint;
-use PHPUnit\Framework\Constraint\ExceptionCode;
-use PHPUnit\Framework\Constraint\ExceptionMessage;
+use Pitchart\Phlunit\Check;
 use Pitchart\Phlunit\Checks\Mixin\TypeCheck;
 use Pitchart\Phlunit\Checks\Mixin\WithMessage;
 
 class CallableCheck implements FluentCheck
 {
-    use TypeCheck;
+    use TypeCheck, WithMessage;
 
     /**
      * @var callable
@@ -25,19 +23,9 @@ class CallableCheck implements FluentCheck
     private $arguments = [];
 
     /**
-     * @var ?string
+     * @var mixed
      */
-    private $exceptionClass;
-
-    /**
-     * @var ?string
-     */
-    private $exceptionMessage;
-
-    /**
-     * @var ?int
-     */
-    private $exceptionCode;
+    private $result;
 
     public function __construct(callable $value)
     {
@@ -50,43 +38,29 @@ class CallableCheck implements FluentCheck
         return $this;
     }
 
-    public function throws(string $className): self
+    public function throws(string $className): ExceptionCheck
     {
-        $this->exceptionClass = $className;
-        return $this;
+        $this->execute();
+        Assert::assertInstanceOf(\Throwable::class, $this->result, $this->message);
+        $this->resetMessage();
+        return (new ExceptionCheck($this->result))->isAnInstanceOf($className);
     }
 
-    public function withMessage(string $message): self
+    public function hasAResult()
     {
-        $this->exceptionMessage = $message;
-        return $this;
-    }
-
-    public function withCode(int $code): self
-    {
-        $this->exceptionCode = $code;
-        return $this;
-    }
-
-    public function onExecute()
-    {
-        if ($this->exceptionClass !== null) {
-            try {
-                $this->execute();
-            } catch (\Exception $exception) {
-                Assert::assertThat($exception, new ExceptionConstraint($this->exceptionClass));
-                if ($this->exceptionMessage !== null) {
-                    Assert::assertThat($exception, new ExceptionMessage($this->exceptionMessage));
-                }
-                if ($this->exceptionCode !== null) {
-                    Assert::assertThat($exception, new ExceptionCode($this->exceptionCode));
-                }
-            }
-        }
+        $this->execute();
+        Assert::assertNotInstanceOf(\Throwable::class, $this->result, $this->message);
+        $this->resetMessage();
+        return Check::that($this->result);
     }
 
     private function execute()
     {
-        return \call_user_func($this->value, ...$this->arguments);
+        try {
+            $this->result = \call_user_func($this->value, ...$this->arguments);
+        } catch (\Exception $exception) {
+            $this->result = $exception;
+        }
+        return $this->result;
     }
 }
