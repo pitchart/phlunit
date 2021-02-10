@@ -3,6 +3,7 @@
 
 namespace Pitchart\Phlunit\Checks;
 
+use Pitchart\Phlunit\Checks\Mixin\ConstraintCheck;
 use PHPUnit\Framework\Assert;
 use Pitchart\Phlunit\Checks\Mixin\TypeCheck;
 use Pitchart\Phlunit\Checks\Mixin\WithMessage;
@@ -12,7 +13,7 @@ use Pitchart\Phlunit\Constraint\Arrays\IsSubset;
 
 class CollectionCheck implements FluentCheck
 {
-    use TypeCheck, WithMessage;
+    use TypeCheck,ConstraintCheck,  WithMessage;
     /**
      * @var iterable
      */

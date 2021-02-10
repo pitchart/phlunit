@@ -4,7 +4,10 @@ namespace Tests\Pitchart\Phlunit;
 
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\Constraint\Count;
 use PHPUnit\Framework\Constraint\Exception as ExceptionConstraint;
+use PHPUnit\Framework\Constraint\GreaterThan;
+use PHPUnit\Framework\Constraint\LessThan;
 use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestCase;
 use Pitchart\Phlunit\Checks\ArrayCheck;
@@ -34,7 +37,7 @@ class CheckTest extends TestCase
      * @param $assertionClass
      * @dataProvider assertionMappingProvider
      */
-    public function test_maps_checks_to_dedicated_assertions_on_build($sut, $assertionClass)
+    public function test_maps_checks_to_dedicated_assertions_on_call($sut, $assertionClass)
     {
         $check = Check::that($sut);
 
@@ -74,6 +77,26 @@ class CheckTest extends TestCase
         Check::that(function ($x) { return $x; })->isCallable();
 
         fclose($resource);
+    }
+
+    public function test_has_syntactic_sugar_to_help_writing_close_to_plain_english_sentenses()
+    {
+        Check::that(1)->isGreaterThan(0)->and->isLessThan(2);
+        Check::that(function() {return 2;})->hasAResult()->which->isLessThan(3);
+
+        $this->expectException(\Error::class);
+        $this->expectExceptionMessage(sprintf('Undefined property: %s::$unavailableWord', IntegerCheck::class));
+
+        Check::that(2)->isLessThan(3)->unavailableWord->isGreaterThan(1);
+    }
+
+    public function test_can_be_extended_using_constraints()
+    {
+        Check::that(2)->is(new GreaterThan(1))
+            ->isNot(new LessThan(1));
+
+        Check::that([1, 2, 3])->has(new Count(3))
+            ->hasNot(new Count(4));
     }
 
 }

@@ -3,6 +3,7 @@
 
 namespace Pitchart\Phlunit\Checks;
 
+use Pitchart\Phlunit\Checks\Mixin\ConstraintCheck;
 use PHPUnit\Framework\Assert;
 use Pitchart\Phlunit\Checks\HttpResponse\HttpHeaderCheck;
 use Pitchart\Phlunit\Checks\Mixin\TypeCheck;
@@ -15,7 +16,7 @@ use Psr\Http\Message\ResponseInterface;
 
 class ResponseCheck implements FluentCheck
 {
-    use TypeCheck, WithMessage;
+    use TypeCheck, ConstraintCheck, WithMessage;
 
     /**
      * @var ResponseInterface

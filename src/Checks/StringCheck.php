@@ -3,6 +3,7 @@
 
 namespace Pitchart\Phlunit\Checks;
 
+use Pitchart\Phlunit\Checks\Mixin\ConstraintCheck;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\LogicalNot;
 use Pitchart\Phlunit\Checks\Converter\ToDateTime;
@@ -18,7 +19,7 @@ use Pitchart\Phlunit\Constraint\String\StartsWith;
 
 class StringCheck implements FluentCheck
 {
-    use TypeCheck, WithMessage,
+    use TypeCheck, WithMessage, ConstraintCheck,
         ToDateTime, ToInteger;
 
     /**

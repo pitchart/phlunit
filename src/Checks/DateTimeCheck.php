@@ -3,6 +3,7 @@
 
 namespace Pitchart\Phlunit\Checks;
 
+use Pitchart\Phlunit\Checks\Mixin\ConstraintCheck;
 use PHPUnit\Framework\Assert;
 use Pitchart\Phlunit\Checks\Mixin\TypeCheck;
 use Pitchart\Phlunit\Checks\Mixin\WithMessage;
@@ -11,7 +12,7 @@ use Pitchart\Phlunit\Constraint\DateTime\IsSameIgnoringMillis;
 
 class DateTimeCheck implements FluentCheck
 {
-    use TypeCheck, WithMessage;
+    use TypeCheck, ConstraintCheck, WithMessage;
 
     /**
      * @var \DateTimeInterface
