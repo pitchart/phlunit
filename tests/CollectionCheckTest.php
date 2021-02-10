@@ -42,7 +42,7 @@ class CollectionCheckTest extends TestCase
             ->hasNoElementAt(12)
             ->hasLength(3)
             ->hasNotLength(12)
-            ->contains(1)
+            ->contains(1, 2)
         ;
     }
 
@@ -59,12 +59,12 @@ class CollectionCheckTest extends TestCase
 
     public function test_verifies_sut_is_subset_of_a_set()
     {
-        Check::that([1, 3])->isSubsetOf([1, 2, 3, 4]);
+        Check::that([1, 3])->isSubsetOf(1, 2, 3, 4);
     }
 
     public function test_verifies_sut_contains_a_set()
     {
-        Check::that([1, 2, 3, 4])->containsSet([1, 3]);
+        Check::that([1, 2, 3, 4])->containsSet(1, 3);
     }
 
     public function test_verifies_items_uniqueness()
@@ -108,8 +108,8 @@ class CollectionCheckTest extends TestCase
             'containsOnlyInstancesOf' => [[new \StdClass], 'containsOnlyInstancesOf', [\StdClass::class]],
             'hasLength' => [[1, 2, 3], 'hasLength', [3]],
             'hasNotLength' => [[1, 2, 3], 'hasNotLength', [2]],
-            'isSubsetOf' => [[1, 2, 3], 'isSubsetOf', [[0, 1, 2, 3, 4, 5]]],
-            'containsSet' => [[1, 2, 3], 'containsSet', [[1, 2]]],
+            'isSubsetOf' => [[1, 2, 3], 'isSubsetOf', [0, 1, 2, 3, 4, 5]],
+            'containsSet' => [[1, 2, 3], 'containsSet', [1, 2]],
             'containsNoDuplicateItem ' => [[1, 2, 3], 'containsNoDuplicateItem', []],
         ];
     }

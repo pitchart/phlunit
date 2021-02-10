@@ -42,9 +42,11 @@ class CollectionCheck implements FluentCheck
         return $this;
     }
 
-    public function contains($expected): self
+    public function contains(...$expected): self
     {
-        Assert::assertContains($expected, $this->value, $this->message);
+        foreach ($expected as $expectedElement) {
+            Assert::assertContains($expectedElement, $this->value, $this->message);
+        }
         $this->resetMessage();
         return $this;
     }
@@ -77,7 +79,7 @@ class CollectionCheck implements FluentCheck
         return $this;
     }
 
-    public function isSubsetOf(iterable $set): self
+    public function isSubsetOf(...$set): self
     {
         $constraint = new IsSubset($set);
         $this->resetMessage();
@@ -85,7 +87,7 @@ class CollectionCheck implements FluentCheck
         return $this;
     }
 
-    public function containsSet(iterable $subset): self
+    public function containsSet(...$subset): self
     {
         $constraint = new ContainsSet($subset, $this->message);
         Assert::assertThat($this->value, $constraint, $this->message);
