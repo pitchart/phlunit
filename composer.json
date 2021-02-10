@@ -1,6 +1,7 @@
 {
     "name": "pitchart/phlunit",
     "description": "Fluent assertions for PHP",
+    "keywords": ["phpunit", "tdd", "fluent", "testing", "assertions"],
     "type": "library",
     "require": {
         "phpunit/phpunit": "8.5",
