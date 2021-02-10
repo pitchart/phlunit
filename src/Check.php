@@ -75,7 +75,7 @@ final class Check
         return self::that($function);
     }
 
-    public static function registerAssertionsFor(string $className, string $assertionClass)
+    public static function registerChecksFor(string $className, string $assertionClass)
     {
         self::$assertionClassesMap[$className] = $assertionClass;
     }

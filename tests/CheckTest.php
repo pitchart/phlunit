@@ -22,14 +22,14 @@ use Pitchart\Phlunit\Checks\StringCheck;
 use Pitchart\Phlunit\Check;
 use Psr\Http\Message\ResponseInterface;
 use Tests\Pitchart\Phlunit\Fixture\Custom;
-use Tests\Pitchart\Phlunit\Fixture\CustomAssertion;
+use Tests\Pitchart\Phlunit\Fixture\CustomChecks;
 
 class CheckTest extends TestCase
 {
     public function test_can_register_assertions_for_a_given_class()
     {
-        Check::registerAssertionsFor(Custom::class, CustomAssertion::class);
-        Check::that(Check::that(new Custom))->isAnInstanceOf(CustomAssertion::class);
+        Check::registerChecksFor(Custom::class, CustomChecks::class);
+        Check::that(Check::that(new Custom))->isAnInstanceOf(CustomChecks::class);
     }
 
     /**
