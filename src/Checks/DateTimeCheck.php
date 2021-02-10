@@ -30,14 +30,14 @@ class DateTimeCheck implements FluentCheck
 
     public function isSameDayAs(\DateTimeInterface $expected): self
     {
-        Assert::assertThat($this->value, new IsSameDayAs($expected));
+        Assert::assertThat($this->value, new IsSameDayAs($expected), $this->message);
         $this->resetMessage();
         return $this;
     }
 
     public function isSameIgnoringMillis(\DateTimeInterface $expected): self
     {
-        Assert::assertThat($this->value, new IsSameIgnoringMillis($expected));
+        Assert::assertThat($this->value, new IsSameIgnoringMillis($expected), $this->message);
         $this->resetMessage();
         return $this;
     }

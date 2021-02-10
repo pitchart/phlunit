@@ -12,6 +12,17 @@ use Pitchart\Phlunit\Check;
 
 class DateTimeCheckTest extends TestCase
 {
+    public function test_fails_with_identifier_message()
+    {
+        try {
+            Check::that(new \DateTime())
+                ->withMessage('toto')
+                ->isSameDayAs(\DateTime::createFromFormat('Y-m-d','1983-28-04'))
+            ;
+        } catch (ExpectationFailedException $exception) {
+            Assert::assertRegExp('/toto/', $exception->getMessage());
+        }
+    }
 
     public function test_checks_datetime_formats()
     {
