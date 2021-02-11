@@ -5,6 +5,7 @@ namespace Tests\Pitchart\Phlunit\Constraint\Arrays;
 use Pitchart\Phlunit\Constraint\Arrays\IsSubset;
 use Tests\Pitchart\Phlunit\Constraint\ConstraintTestCase;
 use Tests\Pitchart\Phlunit\Constraint\UniqueConstraint;
+use Tests\Pitchart\Phlunit\Fixture\Person;
 
 class IsSubsetTest extends ConstraintTestCase
 {
@@ -46,6 +47,17 @@ class IsSubsetTest extends ConstraintTestCase
             'indexed \Iterator' => [new \ArrayIterator($indexedArray)],
             'indexed \Generator' => [$arrayToGenerator($indexedArray)],
         ];
+    }
+
+    public function test_succeeds_with_objects_collections()
+    {
+        $this->assertTrue(
+            (new IsSubset([new Person('Batman'), new Person('Catwoman'), new Person('Robin'), new Person('Alfred')]))
+                ->evaluate(
+                    [new Person('Batman'), new Person('Robin')],
+                    '', true
+                )
+        );
     }
 
     public function test_fails_when_evaluate_non_prefixed_string()

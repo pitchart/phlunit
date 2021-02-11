@@ -3,6 +3,7 @@
 namespace Pitchart\Phlunit\Constraint\Arrays;
 
 use PHPUnit\Framework\Constraint\Constraint;
+use function Pitchart\Transformer\transform;
 
 final class IsSubset extends Constraint
 {
@@ -19,12 +20,12 @@ final class IsSubset extends Constraint
     public function evaluate($other, string $description = '', bool $returnResult = false)
     {
         $other        = ArrayUtility::toArray($other);
-        $this->set = ArrayUtility::toArray($this->set);
+        $set = ArrayUtility::toArray($this->set);
 
         if (ArrayUtility::isAssociative($other)) {
-            $result = \array_diff_assoc($other, $this->set) === [];
+            $result = \array_diff_assoc($other, $set) === [];
         } else {
-            $result = \array_diff($other, $this->set) === [];
+            $result = transform($other)->diff($set)->toArray() === [];
         }
 
         if (!$returnResult && !$result) {

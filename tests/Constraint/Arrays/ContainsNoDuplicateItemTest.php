@@ -6,6 +6,7 @@ use Pitchart\Phlunit\Constraint\Arrays\ContainsNoDuplicateItem;
 use Pitchart\Phlunit\Constraint\Arrays\ContainsSet;
 use Tests\Pitchart\Phlunit\Constraint\ConstraintTestCase;
 use Tests\Pitchart\Phlunit\Constraint\UniqueConstraint;
+use Tests\Pitchart\Phlunit\Fixture\Person;
 
 class ContainsNoDuplicateItemTest extends ConstraintTestCase
 {
@@ -28,6 +29,17 @@ class ContainsNoDuplicateItemTest extends ConstraintTestCase
     public function test_successes_when_evaluates_iterables_not_containing_duplicate_item($iterable)
     {
         $this->assertTrue($this->constraint->evaluate($iterable, '', true));
+    }
+
+    public function test_succeeds_with_objects_collections()
+    {
+        $this->assertTrue(
+            (new ContainsNoDuplicateItem())
+                ->evaluate(
+                    [new Person('Batman'), new Person('Robin')],
+                    '', true
+                )
+        );
     }
 
     public function containsSubsets()

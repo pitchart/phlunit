@@ -4,6 +4,7 @@
 namespace Pitchart\Phlunit\Constraint\Arrays;
 
 use PHPUnit\Framework\Constraint\Constraint;
+use function Pitchart\Transformer\transform;
 
 final class ContainsSet extends Constraint
 {
@@ -22,12 +23,12 @@ final class ContainsSet extends Constraint
         //type cast $other & $this->subset as an array to allow
         //support in standard array functions.
         $other        = ArrayUtility::toArray($other);
-        $this->set = ArrayUtility::toArray($this->set);
+        $set = ArrayUtility::toArray($this->set);
 
         if (ArrayUtility::isAssociative($other)) {
-            $result = \array_diff_assoc($this->set, $other) === [];
+            $result = \array_diff_assoc($set, $other) === [];
         } else {
-            $result = \array_diff($this->set, $other) === [];
+            $result = transform($set)->diff($other)->toArray() === [];
         }
 
         if (!$returnResult && !$result) {

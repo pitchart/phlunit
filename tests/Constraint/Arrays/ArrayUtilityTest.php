@@ -34,6 +34,8 @@ class ArrayUtilityTest extends TestCase
         $this->assertEquals($expected, ArrayUtility::toArray($iterable));
     }
 
+
+
     public function iterableProvider()
     {
         $indexedArray = [1, 2, 3];
