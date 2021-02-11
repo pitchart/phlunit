@@ -3,10 +3,13 @@
 
 namespace Pitchart\Phlunit\Checks;
 
+
 use PHPUnit\Framework\Assert;
 use Pitchart\Phlunit\Checks\Mixin\ConstraintCheck;
 use Pitchart\Phlunit\Checks\Mixin\TypeCheck;
 use Pitchart\Phlunit\Checks\Mixin\WithMessage;
+
+use Pitchart\Phlunit\Constraint\Arrays\ContainsExactly;
 use Pitchart\Phlunit\Constraint\Arrays\ContainsNoDuplicateItem;
 use Pitchart\Phlunit\Constraint\Arrays\ContainsSet;
 use Pitchart\Phlunit\Constraint\Arrays\IsSubset;
@@ -43,16 +46,7 @@ class CollectionCheck implements FluentCheck
         return $this;
     }
 
-    public function contains(...$expected): self
-    {
-        foreach ($expected as $expectedElement) {
-            Assert::assertContains($expectedElement, $this->value, $this->message);
-        }
-        $this->resetMessage();
-        return $this;
-    }
-
-    public function containsOnly(string $type): self
+    public function isACollectionOf(string $type): self
     {
         Assert::assertContainsOnly($type, $this->value, null, $this->message);
         $this->resetMessage();
@@ -62,6 +56,36 @@ class CollectionCheck implements FluentCheck
     public function containsOnlyInstancesOf(string $className): self
     {
         Assert::assertContainsOnlyInstancesOf($className, $this->value, $this->message);
+        $this->resetMessage();
+        return $this;
+    }
+
+    public function contains(...$expected): self
+    {
+        foreach ($expected as $expectedElement) {
+            Assert::assertContains($expectedElement, $this->value, $this->message);
+        }
+        $this->resetMessage();
+        return $this;
+    }
+
+    public function containsExactly(...$expected): self
+    {
+        Assert::assertThat($this->value, new ContainsExactly(...$expected), $this->message);
+        return $this;
+    }
+
+    public function containsSet(...$subset): self
+    {
+        $constraint = new ContainsSet($subset, $this->message);
+        Assert::assertThat($this->value, $constraint, $this->message);
+        $this->resetMessage();
+        return $this;
+    }
+
+    public function containsNoDuplicateItem(): self
+    {
+        Assert::assertThat($this->value, new ContainsNoDuplicateItem(), $this->message);
         $this->resetMessage();
         return $this;
     }
@@ -88,18 +112,4 @@ class CollectionCheck implements FluentCheck
         return $this;
     }
 
-    public function containsSet(...$subset): self
-    {
-        $constraint = new ContainsSet($subset, $this->message);
-        Assert::assertThat($this->value, $constraint, $this->message);
-        $this->resetMessage();
-        return $this;
-    }
-
-    public function containsNoDuplicateItem(): self
-    {
-        Assert::assertThat($this->value, new ContainsNoDuplicateItem(), $this->message);
-        $this->resetMessage();
-        return $this;
-    }
 }

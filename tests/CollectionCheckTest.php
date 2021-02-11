@@ -39,7 +39,7 @@ class CollectionCheckTest extends TestCase
     {
         Check::that([0, 1, 2])
             ->hasElementAt(1)
-            ->hasNoElementAt(12)
+            ->and->hasNoElementAt(12)
             ->hasLength(3)
             ->hasNotLength(12)
             ->contains(1, 2)
@@ -48,8 +48,8 @@ class CollectionCheckTest extends TestCase
 
     public function test_verifies_sut_contains_only_one_type()
     {
-        Check::that([0, 1, 2])->containsOnly('integer')->containsOnly('int');
-        Check::that(['zero', 'one', 'two'])->containsOnly('string');
+        Check::that([0, 1, 2])->isACollectionOf('integer')->isACollectionOf('int');
+        Check::that(['zero', 'one', 'two'])->isACollectionOf('string');
     }
 
     public function test_verifies_sut_contains_only_one_class_instances()
@@ -82,10 +82,17 @@ class CollectionCheckTest extends TestCase
             ->hasNoElementAt(12)
             ->hasLength(3)
             ->hasNotLength(12)
-            ->contains(1)
+            ->contains(0, 2)
         ;
 
         Check::that([new \StdClass(), new \StdClass(), new \StdClass()])->containsOnlyInstancesOf(\StdClass::class);
+    }
+
+    public function test_checks_exact_content_of_a_collection()
+    {
+        Check::that([1, 2, 3])->containsExactly(1, 2, 3);
+        Check::that([])->containsExactly();
+        Check::that([1, 2, 3])->containsExactly(...[1, 2, 3]);
     }
 
     /**
@@ -104,11 +111,12 @@ class CollectionCheckTest extends TestCase
     {
         yield from [
             'contains' => [[1, 2, 3], 'contains', [2]],
-            'containsOnly' => [[1, 2, 3], 'containsOnly', ['int']],
+            'isACollectionOf' => [[1, 2, 3], 'isACollectionOf', ['int']],
             'containsOnlyInstancesOf' => [[new \StdClass], 'containsOnlyInstancesOf', [\StdClass::class]],
             'hasLength' => [[1, 2, 3], 'hasLength', [3]],
             'hasNotLength' => [[1, 2, 3], 'hasNotLength', [2]],
             'isSubsetOf' => [[1, 2, 3], 'isSubsetOf', [0, 1, 2, 3, 4, 5]],
+            'containsExactly' => [[1, 2, 3], 'containsExactly', [1, 2, 3]],
             'containsSet' => [[1, 2, 3], 'containsSet', [1, 2]],
             'containsNoDuplicateItem ' => [[1, 2, 3], 'containsNoDuplicateItem', []],
         ];
