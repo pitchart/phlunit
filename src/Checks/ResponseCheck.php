@@ -80,4 +80,11 @@ class ResponseCheck implements FluentCheck
         $this->resetMessage();
         return $this;
     }
+
+    public function asJson(): JsonCheck
+    {
+        $content = $this->value->getBody()->getContents();
+        Assert::assertJson($content);
+        return new JsonCheck($content);
+    }
 }

@@ -3,6 +3,8 @@
 namespace Tests\Pitchart\Phlunit;
 
 use GuzzleHttp\Psr7\Response;
+use GuzzleHttp\Psr7\Stream;
+use GuzzleHttp\Psr7\Utils;
 use PHPUnit\Framework\TestCase;
 use Pitchart\Phlunit\Checks\ResponseCheck;
 use Pitchart\Phlunit\Check;
@@ -68,6 +70,18 @@ class ResponseCheckTest extends TestCase
         $response = (new Response(200))->withHeader('xxx-header', 'xxx-header-value');
 
         Check::that($response)->hasReason('OK');
+    }
+
+    public function test_checks_json_responses()
+    {
+        $response = (new Response(200))
+            ->withHeader('xxx-header', 'xxx-header-value')
+            ->withBody(Utils::streamFor('{"name": "Batman"}'))
+        ;
+
+        $expectedSchema = ['type' => 'object', 'required' => ['name'], 'properties' => ['name' => ['type' => 'string']]];
+
+        Check::that($response)->asJson()->matchesSchema($expectedSchema);
     }
 
 }
