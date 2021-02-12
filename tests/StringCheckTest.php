@@ -8,6 +8,7 @@ use PHPUnit\Framework\TestCase;
 use Pitchart\Phlunit\Checks\GenericCheck;
 use Pitchart\Phlunit\Checks\DateTimeCheck;
 use Pitchart\Phlunit\Check;
+use Pitchart\Phlunit\Checks\JsonCheck;
 use Pitchart\Phlunit\Checks\StringCheck;
 
 class StringCheckTest extends TestCase
@@ -168,11 +169,18 @@ class StringCheckTest extends TestCase
         Check::that($check)->isAnInstanceOf(DateTimeCheck::class);
     }
 
-    public function test_integer_strings_can_switch_to_integer_assertions()
+    public function test_integer_strings_can_switch_to_integer_checks()
     {
         $check = Check::that('42')->asInteger();
 
         Check::that($check)->isAnInstanceOf(GenericCheck::class);
+    }
+
+    public function test_json_string_can_switch_to_json_checks()
+    {
+        $check = Check::that('{"name": "Batman"}')->asJson();
+
+        Check::that($check)->isAnInstanceOf(JsonCheck::class);
     }
 
 }
