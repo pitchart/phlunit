@@ -1,5 +1,6 @@
 TODO List
 
+- fix strict dependency versions ✔
 - Integer checks ✔
 - Float checks with precision
 - String check matches() ✔
