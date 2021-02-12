@@ -1,14 +1,12 @@
-<?php
+<?php declare(strict_types=1);
 
 
 namespace Pitchart\Phlunit\Constraint\Arrays;
-
 
 use PHPUnit\Framework\Constraint\Constraint;
 use PHPUnit\Framework\ExpectationFailedException;
 use function Pitchart\Transformer\transform;
 use SebastianBergmann\Comparator\ComparisonFailure;
-
 
 class ContainsExactly extends Constraint
 {
@@ -28,7 +26,7 @@ class ContainsExactly extends Constraint
     {
         //type cast $other & $this->subset as an array to allow
         //support in standard array functions.
-        $other = array_values(ArrayUtility::toArray($other));
+        $other = \array_values(ArrayUtility::toArray($other));
         $elements = ArrayUtility::toArray($this->elements);
         $success = true;
         $failureList = [];
@@ -38,10 +36,11 @@ class ContainsExactly extends Constraint
         $success = $success && $missing === [];
 
         if (!empty($missing)) {
-            $count = count($missing);
+            $count = \count($missing);
             $failureList[] = \sprintf(
                 "%d %s missing",
-                $count, $count == 1 ? 'element is' : 'elements are'
+                $count,
+                $count == 1 ? 'element is' : 'elements are'
             );
         }
 
@@ -50,10 +49,11 @@ class ContainsExactly extends Constraint
         $success = $success && $unexpected === [];
 
         if (!empty($unexpected)) {
-            $count = count($unexpected);
+            $count = \count($unexpected);
             $failureList[] = \sprintf(
                 "%d %s unexpected",
-                $count, $count == 1 ? 'element is' : 'elements are'
+                $count,
+                $count == 1 ? 'element is' : 'elements are'
             );
         }
 
@@ -76,8 +76,9 @@ class ContainsExactly extends Constraint
 
         if (!$success) {
             $failureDescription = \sprintf(
-                'Failed asserting that '.$this->toString(),
-                count($elements), implode(' and ', $failureList)
+                'Failed asserting that ' . $this->toString(),
+                \count($elements),
+                \implode(' and ', $failureList)
             );
 
             if (!empty($description)) {
@@ -93,7 +94,6 @@ class ContainsExactly extends Constraint
 
             throw new ExpectationFailedException($failureDescription, $comparisonFailure);
         }
-
     }
 
     private function getMissingElements(array $other, array $elements)
@@ -110,5 +110,4 @@ class ContainsExactly extends Constraint
     {
         return 'iterable contains %d expected elements because %s.';
     }
-
 }

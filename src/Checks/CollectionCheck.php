@@ -3,7 +3,6 @@
 
 namespace Pitchart\Phlunit\Checks;
 
-
 use PHPUnit\Framework\Assert;
 use Pitchart\Phlunit\Checks\Mixin\ConstraintCheck;
 use Pitchart\Phlunit\Checks\Mixin\TypeCheck;
@@ -111,5 +110,4 @@ class CollectionCheck implements FluentCheck
         Assert::assertThat($this->value, $constraint, $this->message);
         return $this;
     }
-
 }

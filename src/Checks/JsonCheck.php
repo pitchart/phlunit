@@ -1,8 +1,7 @@
-<?php
+<?php declare(strict_types=1);
 
 
 namespace Pitchart\Phlunit\Checks;
-
 
 use PHPUnit\Framework\Assert;
 use Pitchart\Phlunit\Checks\Mixin\ConstraintCheck;
@@ -56,5 +55,4 @@ class JsonCheck implements FluentCheck
         Assert::assertThat($this->value, new MatchesSchema($schema), $this->message);
         return $this;
     }
-
 }

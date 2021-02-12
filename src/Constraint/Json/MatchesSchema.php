@@ -1,8 +1,7 @@
-<?php
+<?php declare(strict_types=1);
 
 
 namespace Pitchart\Phlunit\Constraint\Json;
-
 
 use JsonSchema\Validator;
 use PHPUnit\Framework\Constraint\Constraint;
@@ -19,7 +18,7 @@ class MatchesSchema extends Constraint
 
     public function toString(): string
     {
-        return sprintf('matches Json Schema %s', json_encode($this->schema));
+        return \sprintf('matches Json Schema %s', \json_encode($this->schema));
     }
 
     /**
@@ -45,18 +44,17 @@ class MatchesSchema extends Constraint
         $validator = new Validator();
         $validator->check($other, $this->schema);
 
-        return implode("\n", array_map(function ($error) {
-            return sprintf("[%s] %s", $error['property'], $error['message']);
+        return \implode("\n", \array_map(function ($error) {
+            return \sprintf("[%s] %s", $error['property'], $error['message']);
         }, $validator->getErrors()));
     }
 
     private function convertToObject($value): \stdClass
     {
-        if (is_string($value)) {
-            return json_decode($value);
+        if (\is_string($value)) {
+            return \json_decode($value);
         }
 
-        return json_decode(json_encode($value));
+        return \json_decode(\json_encode($value));
     }
-
 }
