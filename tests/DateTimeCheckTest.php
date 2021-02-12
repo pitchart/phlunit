@@ -30,6 +30,8 @@ class DateTimeCheckTest extends TestCase
             ->isSameDayAs(new \DateTime())
             ->isSameIgnoringMillis(new \DateTime())
         ;
+        Check::that(\DateTime::createFromFormat('Y-m-d H:i:s','1983-04-28 00:30:45'))
+            ->isSameTimeAs(\DateTime::createFromFormat('Y-m-d H:i:s','2021-04-28 00:30:45'));
     }
 
     public function test_checks_datetime_parts()

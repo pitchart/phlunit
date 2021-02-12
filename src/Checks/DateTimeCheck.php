@@ -9,6 +9,7 @@ use Pitchart\Phlunit\Checks\Mixin\TypeCheck;
 use Pitchart\Phlunit\Checks\Mixin\WithMessage;
 use Pitchart\Phlunit\Constraint\DateTime\IsSameDayAs;
 use Pitchart\Phlunit\Constraint\DateTime\IsSameIgnoringMillis;
+use Pitchart\Phlunit\Constraint\DateTime\IsSameTimeAs;
 
 class DateTimeCheck implements FluentCheck
 {
@@ -80,7 +81,7 @@ class DateTimeCheck implements FluentCheck
 
     public function isSameTimeAs(\DateTimeInterface $expected): self
     {
-        Assert::assertThat($this->value, new IsSameDayAs($expected), $this->message);
+        Assert::assertThat($this->value, new IsSameTimeAs($expected), $this->message);
         $this->resetMessage();
         return $this;
     }
