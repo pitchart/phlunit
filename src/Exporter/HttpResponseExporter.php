@@ -29,7 +29,8 @@ class HttpResponseExporter extends Exporter
         $replace = '';
         if ($this->withHeaders || $this->withContent) {
             $properties = parent::toArray($value);
-            $whitespace = \str_repeat(' ', (int)(4 * ($indentation + 1)));
+            $whitespace = \str_repeat(' ', (int) (4 * ($indentation + 1)));
+            /** @var array<string, array> $properties */
             if (isset($properties['headers']) && \count($properties['headers'])) {
                 $replace = "\n$whitespace'headers' (\n";
                 foreach ($properties['headers'] as $name => $values) {

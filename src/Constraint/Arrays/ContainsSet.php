@@ -22,7 +22,7 @@ final class ContainsSet extends Constraint
     {
         //type cast $other & $this->subset as an array to allow
         //support in standard array functions.
-        $other        = ArrayUtility::toArray($other);
+        $other = ArrayUtility::toArray($other);
         $set = ArrayUtility::toArray($this->set);
 
         if (ArrayUtility::isAssociative($other)) {

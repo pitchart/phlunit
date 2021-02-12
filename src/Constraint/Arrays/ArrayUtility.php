@@ -8,7 +8,7 @@ class ArrayUtility
     public static function isAssociative(array $array)
     {
         $size = \count($array);
-        $filteredKeys = \array_filter(\array_keys($array), function ($int) {return $int === (int) $int;});
+        $filteredKeys = \array_filter(\array_keys($array), function($int) {return $int === (int) $int;});
         return \count($filteredKeys) !== $size;
     }
 

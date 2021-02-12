@@ -19,7 +19,7 @@ final class IsSubset extends Constraint
 
     public function evaluate($other, string $description = '', bool $returnResult = false): ?bool
     {
-        $other        = ArrayUtility::toArray($other);
+        $other = ArrayUtility::toArray($other);
         $set = ArrayUtility::toArray($this->set);
 
         if (ArrayUtility::isAssociative($other)) {

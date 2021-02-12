@@ -23,7 +23,7 @@ class ContainsNoDuplicateItem extends Constraint
             $array = \array_udiff(
                 $array,
                 [$element],
-                function ($first, $second) {
+                function($first, $second) {
                     return $first <=> $second;
                 }
             );
