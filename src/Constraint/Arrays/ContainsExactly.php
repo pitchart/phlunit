@@ -22,7 +22,7 @@ class ContainsExactly extends Constraint
         $this->elements = $elements;
     }
 
-    public function evaluate($other, string $description = '', bool $returnResult = false)
+    public function evaluate($other, string $description = '', bool $returnResult = false): ?bool
     {
         //type cast $other & $this->subset as an array to allow
         //support in standard array functions.
@@ -94,6 +94,8 @@ class ContainsExactly extends Constraint
 
             throw new ExpectationFailedException($failureDescription, $comparisonFailure);
         }
+
+        return null;
     }
 
     private function getMissingElements(array $other, array $elements)
