@@ -9,10 +9,22 @@ use Pitchart\Phlunit\Checks\Mixin\TypeCheck;
 use Pitchart\Phlunit\Checks\Mixin\WithMessage;
 use Pitchart\Phlunit\Constraint\Json\MatchesSchema;
 
+/**
+ * Class JsonCheck
+ *
+ * @package Pitchart\Phlunit\Checks
+ *
+ * @author Julien VITTE <julien.vitte@insidegroup.fr>
+ *
+ * @implements FluentCheck<string>
+ */
 class JsonCheck implements FluentCheck
 {
     use WithMessage, ConstraintCheck, TypeCheck;
 
+    /**
+     * @var string
+     */
     private $value;
 
     /**
@@ -50,7 +62,12 @@ class JsonCheck implements FluentCheck
         return $this;
     }
 
-    public function matchesSchema($schema)
+    /**
+     * @param string|array|object $schema
+     *
+     * @return JsonCheck
+     */
+    public function matchesSchema($schema): self
     {
         Assert::assertThat($this->value, new MatchesSchema($schema), $this->message);
         return $this;

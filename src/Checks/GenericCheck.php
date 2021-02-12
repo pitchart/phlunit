@@ -20,37 +20,47 @@ class GenericCheck implements FluentCheck
     /**
      * GenericCheck constructor.
      *
-     * @param $value
+     * @param mixed $value
      */
     public function __construct($value)
     {
         $this->value = $value;
     }
 
-    public function isEqualTo($expected, string $message = ''): self
+    /**
+     * @param mixed $expected
+     *
+     * @return GenericCheck
+     */
+    public function isEqualTo($expected): self
     {
-        Assert::assertSame($expected, $this->value, $message);
+        Assert::assertSame($expected, $this->value, $this->message);
         $this->resetMessage();
         return $this;
     }
 
-    public function isNotEqualTo($expected, string $message = ''): self
+    /**
+     * @param mixed $expected
+     *
+     * @return GenericCheck
+     */
+    public function isNotEqualTo($expected): self
     {
-        Assert::assertNotEquals($expected, $this->value, $message);
+        Assert::assertNotEquals($expected, $this->value, $this->message);
         $this->resetMessage();
         return $this;
     }
 
-    public function isEmpty($message = ''): self
+    public function isEmpty(): self
     {
-        Assert::assertEmpty($this->value, $message);
+        Assert::assertEmpty($this->value, $this->message);
         $this->resetMessage();
         return $this;
     }
 
-    public function isNotEmpty($message = ''): self
+    public function isNotEmpty(): self
     {
-        Assert::assertNotEmpty($this->value, $message);
+        Assert::assertNotEmpty($this->value, $this->message);
         $this->resetMessage();
         return $this;
     }

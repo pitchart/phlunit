@@ -8,16 +8,16 @@ use Psr\Http\Message\ResponseInterface;
 final class HasStatusCode extends Constraint
 {
     /**
-     * @var int|string
+     * @var int
      */
     private $code;
 
     /**
-     * @param int|string $key
+     * @param int|string $code
      */
     public function __construct($code)
     {
-        $this->code = $code;
+        $this->code = (int) $code;
     }
 
     /**
@@ -39,7 +39,7 @@ final class HasStatusCode extends Constraint
     protected function matches($other): bool
     {
         if ($other instanceof ResponseInterface) {
-            return $other->getStatusCode() === (int) $this->code;
+            return $other->getStatusCode() === $this->code;
         }
 
         return false;

@@ -7,15 +7,24 @@ use PHPUnit\Framework\Assert;
 use Pitchart\Phlunit\Checks\Mixin\ConstraintCheck;
 use Pitchart\Phlunit\Checks\Mixin\TypeCheck;
 use Pitchart\Phlunit\Checks\Mixin\WithMessage;
-
 use Pitchart\Phlunit\Constraint\Arrays\ContainsExactly;
 use Pitchart\Phlunit\Constraint\Arrays\ContainsNoDuplicateItem;
 use Pitchart\Phlunit\Constraint\Arrays\ContainsSet;
 use Pitchart\Phlunit\Constraint\Arrays\IsSubset;
 
+/**
+ * Class CollectionCheck
+ *
+ * @package Pitchart\Phlunit\Checks
+ *
+ * @author Julien VITTE <julien.vitte@insidegroup.fr>
+ *
+ * @implements FluentCheck<iterable>
+ */
 class CollectionCheck implements FluentCheck
 {
     use TypeCheck,ConstraintCheck,  WithMessage;
+
     /**
      * @var iterable
      */
@@ -24,6 +33,7 @@ class CollectionCheck implements FluentCheck
     /**
      * CollectionCheck constructor.
      *
+     * @template T of iterable
      * @param iterable $actual
      */
     public function __construct(iterable $collection)
@@ -59,6 +69,11 @@ class CollectionCheck implements FluentCheck
         return $this;
     }
 
+    /**
+     * @param array<mixed> ...$expected
+     *
+     * @return CollectionCheck
+     */
     public function contains(...$expected): self
     {
         foreach ($expected as $expectedElement) {
@@ -68,15 +83,25 @@ class CollectionCheck implements FluentCheck
         return $this;
     }
 
+    /**
+     * @param array<mixed> ...$expected
+     *
+     * @return CollectionCheck
+     */
     public function containsExactly(...$expected): self
     {
         Assert::assertThat($this->value, new ContainsExactly(...$expected), $this->message);
         return $this;
     }
 
+    /**
+     * @param array<mixed> ...$subset
+     *
+     * @return CollectionCheck
+     */
     public function containsSet(...$subset): self
     {
-        $constraint = new ContainsSet($subset, $this->message);
+        $constraint = new ContainsSet($subset);
         Assert::assertThat($this->value, $constraint, $this->message);
         $this->resetMessage();
         return $this;
@@ -103,6 +128,11 @@ class CollectionCheck implements FluentCheck
         return $this;
     }
 
+    /**
+     * @param array<mixed> ...$set
+     *
+     * @return CollectionCheck
+     */
     public function isSubsetOf(...$set): self
     {
         $constraint = new IsSubset($set);

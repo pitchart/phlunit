@@ -10,16 +10,16 @@ class EndsWith extends Constraint
     /**
      * @var string
      */
-    private $prefix;
+    private $suffix;
 
     /**
      * StartsWith constructor.
      *
-     * @param string $prefix
+     * @param string $suffix
      */
-    public function __construct($prefix)
+    public function __construct(string $suffix)
     {
-        $this->prefix = $prefix;
+        $this->suffix = $suffix;
     }
 
     /**
@@ -29,7 +29,7 @@ class EndsWith extends Constraint
     {
         return \sprintf(
             'ends with "%s", ignoring case',
-            $this->prefix
+            $this->suffix
         );
     }
 
@@ -37,10 +37,10 @@ class EndsWith extends Constraint
      * Evaluates the constraint for parameter $other. Returns true if the
      * constraint is met, false otherwise.
      *
-     * @param mixed $other value or object to evaluate
+     * @param string $other value or object to evaluate
      */
     protected function matches($other): bool
     {
-        return \preg_match('/' . \preg_quote($this->prefix) . '$/i', $other) > 0;
+        return \preg_match('/' . \preg_quote($this->suffix) . '$/i', $other) > 0;
     }
 }

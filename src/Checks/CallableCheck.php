@@ -9,6 +9,15 @@ use Pitchart\Phlunit\Checks\Mixin\ConstraintCheck;
 use Pitchart\Phlunit\Checks\Mixin\TypeCheck;
 use Pitchart\Phlunit\Checks\Mixin\WithMessage;
 
+/**
+ * Class CallableCheck
+ *
+ * @package Pitchart\Phlunit\Checks
+ *
+ * @author Julien VITTE <julien.vitte@insidegroup.fr>
+ *
+ * @implements FluentCheck<callable>
+ */
 class CallableCheck implements FluentCheck
 {
     use TypeCheck, ConstraintCheck, WithMessage;
@@ -33,6 +42,11 @@ class CallableCheck implements FluentCheck
         $this->value = $value;
     }
 
+    /**
+     * @param array<mixed> ...$args
+     *
+     * @return CallableCheck
+     */
     public function with(...$args): self
     {
         $this->arguments = $args;
@@ -47,6 +61,9 @@ class CallableCheck implements FluentCheck
         return (new ExceptionCheck($this->result))->isAnInstanceOf($className);
     }
 
+    /**
+     * @return ArrayCheck|BooleanCheck|CallableCheck|CollectionCheck|DateTimeCheck|ExceptionCheck|FluentCheck|GenericCheck|ResponseCheck|StringCheck
+     */
     public function hasAResult()
     {
         $this->execute();
@@ -55,6 +72,9 @@ class CallableCheck implements FluentCheck
         return Check::that($this->result);
     }
 
+    /**
+     * @return \Exception|mixed
+     */
     private function execute()
     {
         try {
