@@ -54,10 +54,10 @@ abstract class ConstraintTestCase extends TestCase
         ));
     }
 
-    protected function assertHasFailingMessage(string $message, $failingValue)
+    protected function assertHasFailingMessage(string $message, $failingValue, $description = '')
     {
         try {
-            $this->constraint->evaluate($failingValue);
+            $this->constraint->evaluate($failingValue, $description);
         } catch (ExpectationFailedException $e) {
             $this->assertEquals(
                 <<<EOF
