@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Pitchart\Phlunit;
+namespace Tests\Pitchart\Phlunit\Checks;
 
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Psr7\Stream;
