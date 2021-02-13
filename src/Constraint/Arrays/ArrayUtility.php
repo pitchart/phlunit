@@ -5,14 +5,14 @@ namespace Pitchart\Phlunit\Constraint\Arrays;
 
 class ArrayUtility
 {
-    public static function isAssociative(array $array)
+    public static function isAssociative(array $array): bool
     {
         $size = \count($array);
-        $filteredKeys = \array_filter(\array_keys($array), function ($int) {return $int === (int) $int;});
+        $filteredKeys = \array_filter(\array_keys($array), function($int) {return $int === (int) $int;});
         return \count($filteredKeys) !== $size;
     }
 
-    public static function isIndexed(array $array)
+    public static function isIndexed(array $array): bool
     {
         return !self::isAssociative($array);
     }
@@ -23,7 +23,6 @@ class ArrayUtility
             return \iterator_to_array($iterable);
         }
 
-        // Keep BC even if we know that array would not be the expected one
-        return (array) $iterable;
+        return $iterable;
     }
 }

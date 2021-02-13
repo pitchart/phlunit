@@ -11,6 +11,15 @@ use Pitchart\Phlunit\Constraint\DateTime\IsSameDayAs;
 use Pitchart\Phlunit\Constraint\DateTime\IsSameIgnoringMillis;
 use Pitchart\Phlunit\Constraint\DateTime\IsSameTimeAs;
 
+/**
+ * Class DateTimeCheck
+ *
+ * @package Pitchart\Phlunit\Checks
+ *
+ * @author Julien VITTE <julien.vitte@insidegroup.fr>
+ *
+ * @implements FluentCheck<\DateTimeInterface>
+ */
 class DateTimeCheck implements FluentCheck
 {
     use TypeCheck, ConstraintCheck, WithMessage;
@@ -93,21 +102,21 @@ class DateTimeCheck implements FluentCheck
         return $this;
     }
 
-    public function isAfter(\DateTimeInterface $date)
+    public function isAfter(\DateTimeInterface $date): self
     {
         Assert::assertGreaterThan($date, $this->value, $this->message);
         $this->resetMessage();
         return $this;
     }
 
-    public function isBefore(\DateTimeInterface $date)
+    public function isBefore(\DateTimeInterface $date): self
     {
         Assert::assertLessThan($date, $this->value, $this->message);
         $this->resetMessage();
         return $this;
     }
 
-    public function isBetween(\DateTimeInterface $from, \DateTimeInterface $to)
+    public function isBetween(\DateTimeInterface $from, \DateTimeInterface $to): self
     {
         Assert::assertGreaterThanOrEqual($from, $this->value, $this->message);
         Assert::assertLessThanOrEqual($to, $this->value, $this->message);

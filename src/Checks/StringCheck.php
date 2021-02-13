@@ -18,13 +18,22 @@ use Pitchart\Phlunit\Constraint\String\IsHexadecimal;
 use Pitchart\Phlunit\Constraint\String\IsLetters;
 use Pitchart\Phlunit\Constraint\String\StartsWith;
 
+/**
+ * Class StringCheck
+ *
+ * @package Pitchart\Phlunit\Checks
+ *
+ * @author Julien VITTE <julien.vitte@insidegroup.fr>
+ *
+ * @template-implements FluentCheck<string>
+ */
 class StringCheck implements FluentCheck
 {
     use TypeCheck, WithMessage, ConstraintCheck,
         ToDateTime, ToInteger, ToJson;
 
     /**
-     * @var mixed
+     * @var string
      */
     private $value;
 
@@ -38,7 +47,7 @@ class StringCheck implements FluentCheck
      *
      * @param $value
      */
-    public function __construct($value)
+    public function __construct(string $value)
     {
         $this->value = $value;
     }

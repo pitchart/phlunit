@@ -14,6 +14,15 @@ use Pitchart\Phlunit\Constraint\HttpResponse\HasReason;
 use Pitchart\Phlunit\Constraint\HttpResponse\HasStatusCode;
 use Psr\Http\Message\ResponseInterface;
 
+/**
+ * Class ResponseCheck
+ *
+ * @package Pitchart\Phlunit\Checks
+ *
+ * @author Julien VITTE <julien.vitte@insidegroup.fr>
+ *
+ * @implements FluentCheck<ResponseInterface>
+ */
 class ResponseCheck implements FluentCheck
 {
     use TypeCheck, ConstraintCheck, WithMessage;
@@ -43,9 +52,14 @@ class ResponseCheck implements FluentCheck
     public function whoseHeader(string $header): HttpHeaderCheck
     {
         $this->hasHeader($header);
-        return new HttpHeaderCheck($this->value, $header, $this->value->getHeader($header));
+        return new HttpHeaderCheck($this->value, $header);
     }
 
+    /**
+     * @param int|string $value
+     *
+     * @return ResponseCheck
+     */
     public function hasStatus($value): self
     {
         Assert::assertThat($this->value, new HasStatusCode($value), $this->message);
@@ -53,28 +67,28 @@ class ResponseCheck implements FluentCheck
         return $this;
     }
 
-    public function hasReason(string $reason)
+    public function hasReason(string $reason): self
     {
         Assert::assertThat($this->value, new HasReason($reason), $this->message);
         $this->resetMessage();
         return $this;
     }
 
-    public function isJson()
+    public function isJson(): self
     {
         Assert::assertThat($this->value, new HasContentType('application/json'), $this->message);
         $this->resetMessage();
         return $this;
     }
 
-    public function isHtml()
+    public function isHtml(): self
     {
         Assert::assertThat($this->value, new HasContentType('text/html'), $this->message);
         $this->resetMessage();
         return $this;
     }
 
-    public function isXml()
+    public function isXml(): self
     {
         Assert::assertThat($this->value, new HasContentType('application/xml'), $this->message);
         $this->resetMessage();

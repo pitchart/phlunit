@@ -9,7 +9,7 @@ use SebastianBergmann\Exporter\Exporter;
 trait WithHeaderResponseExporter
 {
     /**
-     * @var HttpResponseExporter
+     * @var ?HttpResponseExporter
      */
     private $responseExporter;
 

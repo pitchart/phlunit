@@ -8,12 +8,21 @@ use Pitchart\Phlunit\Checks\Mixin\ConstraintCheck;
 use Pitchart\Phlunit\Checks\Mixin\TypeCheck;
 use Pitchart\Phlunit\Checks\Mixin\WithMessage;
 
+/**
+ * Class IntegerCheck
+ *
+ * @package Pitchart\Phlunit\Checks
+ *
+ * @author Julien VITTE <julien.vitte@insidegroup.fr>
+ *
+ * @implements FluentCheck<int>
+ */
 class IntegerCheck implements FluentCheck
 {
     use TypeCheck, ConstraintCheck, WithMessage;
 
     /**
-     * @var mixed
+     * @var int
      */
     private $value;
 
@@ -22,19 +31,19 @@ class IntegerCheck implements FluentCheck
      *
      * @param $value
      */
-    public function __construct($value)
+    public function __construct(int $value)
     {
         $this->value = $value;
     }
 
-    public function isEqualTo($expected): self
+    public function isEqualTo(int $expected): self
     {
         Assert::assertSame($expected, $this->value, $this->message);
         $this->resetMessage();
         return $this;
     }
 
-    public function isNotEqualTo($expected): self
+    public function isNotEqualTo(int $expected): self
     {
         Assert::assertNotSame($expected, $this->value, $this->message);
         $this->resetMessage();
@@ -55,28 +64,28 @@ class IntegerCheck implements FluentCheck
         return $this;
     }
 
-    public function isGreaterThan($expected): self
+    public function isGreaterThan(float $expected): self
     {
         Assert::assertGreaterThan($expected, $this->value, $this->message);
         $this->resetMessage();
         return $this;
     }
 
-    public function isGreaterThanOrEqualTo($expected): self
+    public function isGreaterThanOrEqualTo(float $expected): self
     {
         Assert::assertGreaterThanOrEqual($expected, $this->value, $this->message);
         $this->resetMessage();
         return $this;
     }
 
-    public function isLessThan($expected): self
+    public function isLessThan(float $expected): self
     {
         Assert::assertLessThan($expected, $this->value, $this->message);
         $this->resetMessage();
         return $this;
     }
 
-    public function isLessThanOrEqualTo($expected): self
+    public function isLessThanOrEqualTo(float $expected): self
     {
         Assert::assertLessThanOrEqual($expected, $this->value, $this->message);
         $this->resetMessage();

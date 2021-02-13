@@ -15,7 +15,7 @@ class CallableCheckTest extends TestCase
      */
     public function test_checks_that_executing_a_callable_returns_a_result(callable $callable)
     {
-        Check::thatCall($callable)->hasAResult();
+        Check::that($callable)->hasAResult();
     }
 
     public function resultCallableProvider()

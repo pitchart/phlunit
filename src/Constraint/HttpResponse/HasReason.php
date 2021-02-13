@@ -10,14 +10,14 @@ final class HasReason extends Constraint
     /**
      * @var string
      */
-    private $code;
+    private $reason;
 
     /**
      * @param string $key
      */
-    public function __construct($code)
+    public function __construct(string $reason)
     {
-        $this->code = $code;
+        $this->reason = $reason;
     }
 
     /**
@@ -27,7 +27,7 @@ final class HasReason extends Constraint
      */
     public function toString(): string
     {
-        return 'has the expected reason phrase ' . $this->exporter()->export($this->code);
+        return 'has the expected reason phrase ' . $this->exporter()->export($this->reason);
     }
 
     /**
@@ -39,7 +39,7 @@ final class HasReason extends Constraint
     protected function matches($other): bool
     {
         if ($other instanceof ResponseInterface) {
-            return $other->getReasonPhrase() === (string) $this->code;
+            return $other->getReasonPhrase() === $this->reason;
         }
 
         return false;

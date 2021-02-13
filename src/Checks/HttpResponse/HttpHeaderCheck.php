@@ -9,6 +9,16 @@ use Pitchart\Phlunit\Constraint\HttpResponse\HeaderContains;
 use Pitchart\Phlunit\Constraint\HttpResponse\HeaderIsEqualTo;
 use Psr\Http\Message\ResponseInterface;
 
+/**
+ * Class HttpHeaderCheck
+ *
+ * @package Pitchart\Phlunit\Checks\HttpResponse
+ *
+ * @author Julien VITTE <julien.vitte@insidegroup.fr>
+ *
+ * @template THeader
+ * @implements FluentCheck<THeader>
+ */
 class HttpHeaderCheck implements FluentCheck
 {
     /**
@@ -34,13 +44,13 @@ class HttpHeaderCheck implements FluentCheck
         $this->header = $header;
     }
 
-    public function isEqualTo(string $headerValue, string $message = '')
+    public function isEqualTo(string $headerValue, string $message = ''): self
     {
         Assert::assertThat($this->response, new HeaderIsEqualTo($this->header, $headerValue), $message);
         return $this;
     }
 
-    public function contains(string $headerPart, string $message = '')
+    public function contains(string $headerPart, string $message = ''): self
     {
         Assert::assertThat($this->response, new HeaderContains($this->header, $headerPart), $message);
         return $this;

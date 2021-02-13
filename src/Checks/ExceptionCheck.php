@@ -17,7 +17,8 @@ use Pitchart\Phlunit\Checks\Mixin\WithMessage;
  *
  * @author Julien VITTE <julien.vitte@insidegroup.fr>
  *
- * @implements FluentCheck<\Exception>
+ *
+ * @implements FluentCheck<\Throwable>
  */
 class ExceptionCheck implements FluentCheck
 {
@@ -38,6 +39,11 @@ class ExceptionCheck implements FluentCheck
         $this->value = $value;
     }
 
+    /**
+     * @param string $className
+     *
+     * @return ExceptionCheck
+     */
     public function isAnInstanceOf(string $className): self
     {
         Assert::assertThat($this->value, new ExceptionConstraint($className), $this->message);

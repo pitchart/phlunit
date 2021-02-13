@@ -18,11 +18,18 @@ final class ContainsSet extends Constraint
         $this->set = $subset;
     }
 
+    /**
+     * @param iterable $other
+     * @param string $description
+     * @param bool $returnResult
+     *
+     * @return bool|null
+     */
     public function evaluate($other, string $description = '', bool $returnResult = false): ?bool
     {
         //type cast $other & $this->subset as an array to allow
         //support in standard array functions.
-        $other        = ArrayUtility::toArray($other);
+        $other = ArrayUtility::toArray($other);
         $set = ArrayUtility::toArray($this->set);
 
         if (ArrayUtility::isAssociative($other)) {

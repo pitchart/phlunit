@@ -18,6 +18,9 @@ use Psr\Http\Message\ResponseInterface;
 
 final class Check
 {
+    /**
+     * @var array<string, class-string>
+     */
     private static $assertionClassesMap = [
         'string' => StringCheck::class,
         'boolean' => BooleanCheck::class,
@@ -31,7 +34,7 @@ final class Check
         \DateTimeInterface::class => DateTimeCheck::class,
     ];
 
-    private static function hasAssertionClass($type)
+    private static function hasAssertionClass(string $type): bool
     {
         return isset(self::$assertionClassesMap[$type]) && \class_exists(self::$assertionClassesMap[$type]);
     }
@@ -40,8 +43,10 @@ final class Check
     /**
      * @template T
      * @param mixed $sut
+     * @psalm-param T of mixed
+     * @psalm-return FluentCheck<T>
+     * @return BooleanCheck | GenericCheck | CallableCheck | CollectionCheck | ResponseCheck | ArrayCheck | DateTimeCheck | StringCheck | ExceptionCheck
      *
-     * @return BooleanCheck | GenericCheck | CallableCheck | CollectionCheck | ResponseCheck | ArrayCheck | DateTimeCheck | StringCheck | ExceptionCheck | FluentCheck<T>
      */
     public static function that($sut): FluentCheck
     {
@@ -64,18 +69,28 @@ final class Check
         if (\is_iterable($sut)) {
             return new self::$assertionClassesMap['iterable']($sut);
         }
-        if (self::hasAssertionClass(\gettype($sut))) {
-            return new self::$assertionClassesMap[\gettype($sut)]($sut);
+        $type = \gettype($sut);
+        if (self::hasAssertionClass($type)) {
+            return new self::$assertionClassesMap[$type]($sut);
         }
         return new GenericCheck($sut);
     }
 
+    /**
+     * @param callable $function
+     *
+     * @return CallableCheck
+     */
     public static function thatCall(callable $function): CallableCheck
     {
         return self::that($function);
     }
 
-    public static function registerChecksFor(string $className, string $assertionClass)
+    /**
+     * @param string $className
+     * @param class-string $assertionClass
+     */
+    public static function registerChecksFor(string $className, string $assertionClass): void
     {
         self::$assertionClassesMap[$className] = $assertionClass;
     }

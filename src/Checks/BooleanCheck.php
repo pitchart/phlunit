@@ -7,6 +7,15 @@ use PHPUnit\Framework\Assert;
 use Pitchart\Phlunit\Checks\Mixin\TypeCheck;
 use Pitchart\Phlunit\Checks\Mixin\WithMessage;
 
+/**
+ * Class BooleanCheck
+ *
+ * @package Pitchart\Phlunit\Checks
+ *
+ * @author Julien VITTE <julien.vitte@insidegroup.fr>
+ *
+ * @implements FluentCheck<boolean>
+ */
 class BooleanCheck implements FluentCheck
 {
     use TypeCheck, WithMessage;
@@ -17,22 +26,22 @@ class BooleanCheck implements FluentCheck
     private $value;
 
     /**
-     * GenericCheck constructor.
+     * BooleanCheck constructor.
      *
-     * @param $value
+     * @param bool $value
      */
-    public function __construct($value)
+    public function __construct(bool $value)
     {
         $this->value = $value;
     }
 
-    public function isTrue()
+    public function isTrue(): self
     {
         Assert::assertTrue($this->value);
         return $this;
     }
 
-    public function isFalse()
+    public function isFalse(): self
     {
         Assert::assertFalse($this->value);
         return $this;

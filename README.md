@@ -1,3 +1,7 @@
+[![Build Status](https://travis-ci.com/pitchart/phlunit.svg?branch=master)](https://travis-ci.com/pitchart/phlunit)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/pitchart/phlunit/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/pitchart/phlunit/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/pitchart/phlunit/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/pitchart/phlunit/?branch=master)
+
 # Phlunit: PHP Fluent Unit Testing
 
 `Check::that(tdd())->with($phlunit)->isAnInstanceOf(Awesomeness::class);`
