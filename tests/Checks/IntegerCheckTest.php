@@ -7,7 +7,7 @@ namespace Tests\Pitchart\Phlunit\Checks;
 use PHPUnit\Framework\TestCase;
 use Pitchart\Phlunit\Check;
 
-class NumericCheckTest extends TestCase
+class IntegerCheckTest extends TestCase
 {
     public function test_should_respect_equality()
     {
