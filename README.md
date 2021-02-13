@@ -6,7 +6,7 @@
 
 `Check::that(tdd())->with($phlunit)->isAnInstanceOf(Awesomeness::class);`
 
-Fluent assertions for phpunit.
+__*Fluent assertions for phpunit.*__
 
 ## Why ?
 
