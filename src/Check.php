@@ -9,6 +9,7 @@ use Pitchart\Phlunit\Checks\CallableCheck;
 use Pitchart\Phlunit\Checks\CollectionCheck;
 use Pitchart\Phlunit\Checks\DateTimeCheck;
 use Pitchart\Phlunit\Checks\ExceptionCheck;
+use Pitchart\Phlunit\Checks\FloatCheck;
 use Pitchart\Phlunit\Checks\FluentCheck;
 use Pitchart\Phlunit\Checks\GenericCheck;
 use Pitchart\Phlunit\Checks\IntegerCheck;
@@ -25,7 +26,8 @@ final class Check
         'string' => StringCheck::class,
         'boolean' => BooleanCheck::class,
         'integer' => IntegerCheck::class,
-        'float' => GenericCheck::class,
+        'float' => FloatCheck::class,
+        'double' => FloatCheck::class,
         'array' => ArrayCheck::class,
         'iterable' => CollectionCheck::class,
         'callable' => CallableCheck::class,
@@ -45,7 +47,7 @@ final class Check
      * @param mixed $sut
      * @psalm-param T of mixed
      * @psalm-return FluentCheck<T>
-     * @return BooleanCheck | GenericCheck | CallableCheck | CollectionCheck | ResponseCheck | ArrayCheck | DateTimeCheck | StringCheck | ExceptionCheck
+     * @return BooleanCheck|GenericCheck|CallableCheck|CollectionCheck|ResponseCheck|ArrayCheck|DateTimeCheck|StringCheck|ExceptionCheck|FloatCheck|IntegerCheck
      *
      */
     public static function that($sut): FluentCheck
