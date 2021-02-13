@@ -18,7 +18,7 @@ trait ToDateTime
 {
     public function asDateTime(string $format = 'Y-m-d H:i:s'): DateTimeCheck
     {
-        $date = \DateTimeImmutable::createFromFormat($format, $this->value);
+        $date = \DateTimeImmutable::createFromFormat($format, (string) $this->value);
         Assert::assertInstanceOf(\DateTimeInterface::class, $date);
         return new DateTimeCheck($date);
     }

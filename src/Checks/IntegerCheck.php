@@ -4,6 +4,7 @@
 namespace Pitchart\Phlunit\Checks;
 
 use PHPUnit\Framework\Assert;
+use Pitchart\Phlunit\Checks\Converter\ToDateTime;
 use Pitchart\Phlunit\Checks\Mixin\ConstraintCheck;
 use Pitchart\Phlunit\Checks\Mixin\TypeCheck;
 use Pitchart\Phlunit\Checks\Mixin\WithMessage;
@@ -20,6 +21,7 @@ use Pitchart\Phlunit\Checks\Mixin\WithMessage;
 class IntegerCheck implements FluentCheck
 {
     use TypeCheck, ConstraintCheck, WithMessage;
+    use ToDateTime { asDateTime as asDateTimeWithFormat; }
 
     /**
      * @var int
@@ -91,4 +93,11 @@ class IntegerCheck implements FluentCheck
         $this->resetMessage();
         return $this;
     }
+
+    public function asDateTime(string $format = 'Y-m-d H:i:s'): DateTimeCheck
+    {
+        return $this->asDateTimeWithFormat('U');
+    }
+
+
 }

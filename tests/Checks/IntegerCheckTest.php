@@ -6,6 +6,7 @@ namespace Tests\Pitchart\Phlunit\Checks;
 
 use PHPUnit\Framework\TestCase;
 use Pitchart\Phlunit\Check;
+use Pitchart\Phlunit\Checks\DateTimeCheck;
 
 class IntegerCheckTest extends TestCase
 {
@@ -24,9 +25,6 @@ class IntegerCheckTest extends TestCase
         Check::that(0)->isEmpty();
     }
 
-    /**
-     * @param $value
-     */
     public function test_should_respect_not_empty()
     {
         Check::that(12)->isNotEmpty();
@@ -40,5 +38,18 @@ class IntegerCheckTest extends TestCase
             ->isLessThan(2)
             ->isLessThanOrEqualTo(1)
         ;
+    }
+
+    public function test_converts_as_datetime_using_timestamp_value()
+    {
+        $expectedDate = \DateTime::createFromFormat('Y-m-d H:i:s', '1983-04-28 00:30:00');
+
+        $check = Check::that(420337800)->asDateTime()
+            ->isAnInstanceOf(\DateTimeInterface::class)
+            ->isSameDayAs($expectedDate)
+            ->isSameTimeAs($expectedDate)
+        ;
+
+        Check::that($check)->isAnInstanceOf(DateTimeCheck::class);
     }
 }
