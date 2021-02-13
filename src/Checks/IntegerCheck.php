@@ -98,6 +98,4 @@ class IntegerCheck implements FluentCheck
     {
         return $this->asDateTimeWithFormat('U');
     }
-
-
 }

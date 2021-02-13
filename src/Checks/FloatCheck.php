@@ -25,9 +25,9 @@ class FloatCheck implements FluentCheck
     private $value;
 
     /**
-     * @var
+     * @var float
      */
-    private $delta;
+    private $delta = 0.0;
 
     public function __construct(float $value)
     {
@@ -98,13 +98,13 @@ class FloatCheck implements FluentCheck
         return $this;
     }
 
-    public function withDelta(float $delta)
+    public function withDelta(float $delta): self
     {
         $this->delta = $delta;
         return $this;
     }
 
-    public function strictly()
+    public function strictly(): self
     {
         return $this->withDelta(0.0);
     }
