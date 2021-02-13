@@ -14,6 +14,7 @@ use Pitchart\Phlunit\Checks\ArrayCheck;
 use Pitchart\Phlunit\Checks\BooleanCheck;
 use Pitchart\Phlunit\Checks\CallableCheck;
 use Pitchart\Phlunit\Checks\CollectionCheck;
+use Pitchart\Phlunit\Checks\FloatCheck;
 use Pitchart\Phlunit\Checks\GenericCheck;
 use Pitchart\Phlunit\Checks\DateTimeCheck;
 use Pitchart\Phlunit\Checks\IntegerCheck;
@@ -51,7 +52,7 @@ class CheckTest extends TestCase
             'string' => ['sut', StringCheck::class],
             'numeric string' => ['42', StringCheck::class],
             'int' => [42, IntegerCheck::class],
-            'float' => [4.5, GenericCheck::class],
+            'float' => [4.5, FloatCheck::class],
             'array' => [[1, 2], ArrayCheck::class],
             'iterable' => [new \ArrayObject([1, 2]), CollectionCheck::class],
             'callable' => [function() { return 1; }, CallableCheck::class],

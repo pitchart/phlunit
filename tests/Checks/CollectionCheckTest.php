@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Pitchart\Phlunit;
+namespace Tests\Pitchart\Phlunit\Checks;
 
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\Exception as ExceptionConstraint;

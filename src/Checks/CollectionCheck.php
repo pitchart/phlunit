@@ -23,7 +23,7 @@ use Pitchart\Phlunit\Constraint\Arrays\IsSubset;
  */
 class CollectionCheck implements FluentCheck
 {
-    use TypeCheck,ConstraintCheck,  WithMessage;
+    use TypeCheck, ConstraintCheck, WithMessage;
 
     /**
      * @var iterable

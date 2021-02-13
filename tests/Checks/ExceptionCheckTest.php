@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Pitchart\Phlunit;
+namespace Tests\Pitchart\Phlunit\Checks;
 
 use Pitchart\Phlunit\Check;
 use PHPUnit\Framework\TestCase;
