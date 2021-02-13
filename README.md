@@ -108,3 +108,7 @@ Check::that(Check::that(new Custom))->isAnInstanceOf(CustomClassChecks::class);
 This package has been mainly inspired by [NFluent](http://www.n-fluent.net/) and [AssertJ](https://joel-costigliola.github.io/assertj/)
 
 Thanks to [Bruno Boucard](https://github.com/boucardbruno) for the inspiration.
+
+## Licence
+
+The [MIT Licence](LICENCE.md)
