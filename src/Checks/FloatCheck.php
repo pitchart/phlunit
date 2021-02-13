@@ -48,8 +48,7 @@ class FloatCheck implements FluentCheck
     {
         if ($this->delta) {
             Assert::assertEqualsWithDelta($expected, $this->value, $this->delta, $this->message);
-        }
-        else {
+        } else {
             Assert::assertSame($expected, $this->value, $this->message);
         }
         $this->resetMessage();
@@ -65,8 +64,7 @@ class FloatCheck implements FluentCheck
     {
         if ($this->delta) {
             Assert::assertNotEqualsWithDelta($expected, $this->value, $this->delta, $this->message);
-        }
-        else {
+        } else {
             Assert::assertNotSame($expected, $this->value, $this->message);
         }
         $this->resetMessage();
@@ -125,5 +123,4 @@ class FloatCheck implements FluentCheck
     {
         return $this->withDelta(0.0);
     }
-
 }
