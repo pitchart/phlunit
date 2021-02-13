@@ -33,5 +33,25 @@
                 <file name="src/Check.php" />
             </errorLevel>
         </LessSpecificReturnStatement>
+        <MoreSpecificImplementedParamType>
+            <errorLevel type="suppress">
+                <directory name="src/Constraint/" />
+            </errorLevel>
+        </MoreSpecificImplementedParamType>
+        <MissingClosureParamType>
+            <errorLevel type="suppress">
+                <directory name="src/Constraint/" />
+            </errorLevel>
+        </MissingClosureParamType>
+        <InternalClass>
+            <errorLevel type="suppress">
+                <file name="src/Constraint/Arrays/ContainsExactly.php"/>
+            </errorLevel>
+        </InternalClass>
+        <RedundantCastGivenDocblockType>
+            <errorLevel type="suppress">
+                <file name="src/Checks/Converter/ToDateTime.php" />
+            </errorLevel>
+        </RedundantCastGivenDocblockType>
     </issueHandlers>
 </psalm>
