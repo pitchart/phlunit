@@ -94,7 +94,7 @@ class IntegerCheck implements FluentCheck
         return $this;
     }
 
-    public function asDateTime(string $format = 'Y-m-d H:i:s'): DateTimeCheck
+    public function asDateTime(): DateTimeCheck
     {
         return $this->asDateTimeWithFormat('U');
     }
