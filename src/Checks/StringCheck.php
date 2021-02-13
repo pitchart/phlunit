@@ -65,7 +65,11 @@ class StringCheck implements FluentCheck
 
     public function isNotEqualTo(string $expected): self
     {
-        Assert::assertNotEquals($expected, $this->value, $this->message, 0.0, 10, false, $this->ignoreCase);
+        if ($this->ignoreCase) {
+            Assert::assertNotEqualsIgnoringCase($expected, $this->value, $this->message);
+        } else {
+            Assert::assertNotEquals($expected, $this->value, $this->message);
+        }
         $this->resetMessage();
         return $this;
     }
