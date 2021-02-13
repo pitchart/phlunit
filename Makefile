@@ -42,9 +42,9 @@ fixer:
 
 ### Testing
 tests:
-	php vendor/bin/phpunit -v --colors --coverage-text
+	php vendor/bin/phpunit
 
 tests-report:
-	php vendor/bin/phpunit -v --colors --coverage-html ./build/tests
+	php vendor/bin/phpunit --coverage-html ./qa/coverage/
 
 .PHONY: tests tests-report
