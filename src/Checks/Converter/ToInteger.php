@@ -3,12 +3,12 @@
 
 namespace Pitchart\Phlunit\Checks\Converter;
 
-use Pitchart\Phlunit\Checks\GenericCheck;
+use Pitchart\Phlunit\Checks\IntegerCheck;
 
 trait ToInteger
 {
-    public function asInteger(): GenericCheck
+    public function asInteger(): IntegerCheck
     {
-        return new GenericCheck((int) $this->value);
+        return new IntegerCheck((int) $this->value);
     }
 }

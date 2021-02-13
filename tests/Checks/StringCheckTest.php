@@ -8,6 +8,7 @@ use PHPUnit\Framework\TestCase;
 use Pitchart\Phlunit\Checks\GenericCheck;
 use Pitchart\Phlunit\Checks\DateTimeCheck;
 use Pitchart\Phlunit\Check;
+use Pitchart\Phlunit\Checks\IntegerCheck;
 use Pitchart\Phlunit\Checks\JsonCheck;
 use Pitchart\Phlunit\Checks\StringCheck;
 
@@ -173,7 +174,7 @@ class StringCheckTest extends TestCase
     {
         $check = Check::that('42')->asInteger();
 
-        Check::that($check)->isAnInstanceOf(GenericCheck::class);
+        Check::that($check)->isAnInstanceOf(IntegerCheck::class);
     }
 
     public function test_json_string_can_switch_to_json_checks()
