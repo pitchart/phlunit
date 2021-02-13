@@ -36,7 +36,41 @@ Check::that($heroes)
     ->startsWith("Batman")
     ->contains("Robin")
 ;
+
+// Collection checks
+Check::that([0, 1, 2])
+    ->isACollectionOf('integer')
+    ->hasElementAt(1)
+    ->and->hasNoElementAt(12)
+    ->hasLength(3)
+    ->hasNotLength(12)
+    ->contains(1, 2)
+    ->isSubsetOf(0, 1, 2, 3, 4)
+    ->containsNoDuplicateItem()
+;
+
+// PSR-7 ResponseInterface checks
+$response = (new Response(200))
+    ->withHeader('xxx-header', 'xxx-header-value')
+    ->withBody(Utils::streamFor('{"name": "Batman", "city": "Gotham City"}'))
+;
+
+Check::that($response)
+    ->asJson()
+        ->matchesSchema(['type' => 'object', 'required' => ['name'], 'properties' => ['name' => ['type' => 'string']]]);
 ```
+
+`Phlunit` provides checks for the following types and classes :
+ - string
+ - boolean
+ - integer
+ - float
+ - array
+ - iterable
+ - callable
+ - Throwable
+ - ResponseInterface (PSR-7)
+ - DateTimeInterface
 
 ## Need more checks ?
 
