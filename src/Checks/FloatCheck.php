@@ -29,21 +29,11 @@ class FloatCheck implements FluentCheck
      */
     private $delta;
 
-    /**
-     * FloatCheck constructor.
-     *
-     * @param float $value
-     */
     public function __construct(float $value)
     {
         $this->value = $value;
     }
 
-    /**
-     * @param float $expected
-     *
-     * @return GenericCheck
-     */
     public function isEqualTo(float $expected): self
     {
         if ($this->delta) {
@@ -55,11 +45,6 @@ class FloatCheck implements FluentCheck
         return $this;
     }
 
-    /**
-     * @param float $expected
-     *
-     * @return GenericCheck
-     */
     public function isNotEqualTo(float $expected): self
     {
         if ($this->delta) {
