@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 
 namespace Pitchart\Phlunit\Constraint\Xml;
@@ -41,8 +41,8 @@ class XmlUtility
             return $actual;
         }
 
-        if (!is_string($actual)) {
-            throw new Exception('Could not load XML from ' . gettype($actual));
+        if (!\is_string($actual)) {
+            throw new Exception('Could not load XML from ' . \gettype($actual));
         }
 
         if ($actual === '') {
@@ -51,16 +51,16 @@ class XmlUtility
 
         // Required for XInclude on Windows.
         if ($xinclude) {
-            $cwd = getcwd();
-            @chdir(dirname($filename));
+            $cwd = \getcwd();
+            @\chdir(\dirname($filename));
         }
 
         $document = new \DOMDocument();
         $document->preserveWhiteSpace = false;
 
-        $internal  = libxml_use_internal_errors(true);
+        $internal  = \libxml_use_internal_errors(true);
         $message   = '';
-        $reporting = error_reporting(0);
+        $reporting = \error_reporting(0);
 
         if ($filename !== '') {
             // Required for XInclude
@@ -77,21 +77,21 @@ class XmlUtility
             $document->xinclude();
         }
 
-        foreach (libxml_get_errors() as $error) {
+        foreach (\libxml_get_errors() as $error) {
             $message .= "\n" . $error->message;
         }
 
-        libxml_use_internal_errors($internal);
-        error_reporting($reporting);
+        \libxml_use_internal_errors($internal);
+        \error_reporting($reporting);
 
         if (isset($cwd)) {
-            @chdir($cwd);
+            @\chdir($cwd);
         }
 
         if ($loaded === false || ($strict && $message !== '')) {
             if ($filename !== '') {
                 throw new Exception(
-                    sprintf(
+                    \sprintf(
                         'Could not load "%s".%s',
                         $filename,
                         $message !== '' ? "\n" . $message : ''
@@ -116,14 +116,14 @@ class XmlUtility
      */
     public static function loadFile(string $filename, bool $isHtml = false, bool $xinclude = false, bool $strict = false): \DOMDocument
     {
-        $reporting = error_reporting(0);
-        $contents  = file_get_contents($filename);
+        $reporting = \error_reporting(0);
+        $contents  = \file_get_contents($filename);
 
-        error_reporting($reporting);
+        \error_reporting($reporting);
 
         if ($contents === false) {
             throw new Exception(
-                sprintf(
+                \sprintf(
                     'Could not read "%s".',
                     $filename
                 )

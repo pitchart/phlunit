@@ -63,7 +63,7 @@ class MatchesSchema extends Constraint
     protected function failureDescription($other): string
     {
         $other = $this->exporter()->export($this->asDomDocument($other)->saveXML());
-        $other = preg_replace("/\n+/", "\n", $other);
+        $other = \preg_replace("/\n+/", "\n", $other);
         return  $other . ' ' . $this->toString();
     }
 }

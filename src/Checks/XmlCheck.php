@@ -4,7 +4,6 @@
 namespace Pitchart\Phlunit\Checks;
 
 use PHPUnit\Framework\Assert;
-use PHPUnit\Util\Xml;
 use Pitchart\Phlunit\Checks\Mixin\TypeCheck;
 use Pitchart\Phlunit\Checks\Mixin\WithMessage;
 use Pitchart\Phlunit\Constraint\Xml\MatchesSchema;

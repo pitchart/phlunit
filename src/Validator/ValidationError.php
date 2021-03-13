@@ -61,5 +61,4 @@ class ValidationError
     {
         return $this->message;
     }
-
 }
