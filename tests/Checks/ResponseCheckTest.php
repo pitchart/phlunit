@@ -84,4 +84,16 @@ class ResponseCheckTest extends TestCase
         Check::that($response)->asJson()->matchesSchema($expectedSchema);
     }
 
+    public function test_checks_xml_responses()
+    {
+        $response = (new Response(200))
+            ->withHeader('xxx-header', 'xxx-header-value')
+            ->withBody(Utils::streamFor(file_get_contents(TEST_FILES_PATH.'batman.xml')))
+        ;
+
+        $expectedSchema = TEST_FILES_PATH.'hero.xsd';
+
+        Check::that($response)->asXml()->matchesSchema($expectedSchema);
+    }
+
 }

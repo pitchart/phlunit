@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<hero>
+    <name>Jocker</name>
+    <city>Gotham City</city>
+    <enemy>Bruce Wayne</enemy>
+    <level>10</level>
+</hero>

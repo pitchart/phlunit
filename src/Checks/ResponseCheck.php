@@ -101,4 +101,10 @@ class ResponseCheck implements FluentCheck
         Assert::assertJson($content);
         return new JsonCheck($content);
     }
+
+    public function asXml(): XmlCheck
+    {
+        $content = $this->value->getBody()->getContents();
+        return new XmlCheck($content);
+    }
 }
