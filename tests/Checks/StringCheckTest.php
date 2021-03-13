@@ -117,6 +117,7 @@ class StringCheckTest extends TestCase
         Check::that('foobar')
             ->ignoringCase()
             ->isEqualTo('foObAr')
+            ->isNotEqualTo('f00BAR')
             ->startsWith('foO')
             ->contains('O')
             ->endsWith('Bar')
