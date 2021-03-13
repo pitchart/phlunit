@@ -8,6 +8,7 @@ use PHPUnit\Util\Xml;
 use Pitchart\Phlunit\Checks\Mixin\TypeCheck;
 use Pitchart\Phlunit\Checks\Mixin\WithMessage;
 use Pitchart\Phlunit\Constraint\Xml\MatchesSchema;
+use Pitchart\Phlunit\Constraint\Xml\XmlUtility;
 
 class XmlCheck implements FluentCheck
 {
@@ -25,7 +26,7 @@ class XmlCheck implements FluentCheck
      */
     public function __construct($value)
     {
-        $this->value = Xml::load($value);
+        $this->value = XmlUtility::load($value);
     }
 
     public function isEqualTo($expected): self

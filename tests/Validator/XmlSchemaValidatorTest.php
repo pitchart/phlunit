@@ -4,6 +4,7 @@ namespace Tests\Pitchart\Phlunit\Validator;
 
 use PHPUnit\Util\Xml;
 use Pitchart\Phlunit\Check;
+use Pitchart\Phlunit\Constraint\Xml\XmlUtility;
 use Pitchart\Phlunit\Validator\ValidationError;
 use Pitchart\Phlunit\Validator\XmlSchemaValidator;
 use PHPUnit\Framework\TestCase;
@@ -69,7 +70,7 @@ class XmlSchemaValidatorTest extends TestCase
     public function validXmlProvider()
     {
         $batman = file_get_contents(TEST_FILES_PATH.'batman.xml');
-        $xml = Xml::load($batman);
+        $xml = XmlUtility::load($batman);
         yield from [
             'string xml' => [$batman],
             '\DOMDocument xml' => [$xml],
@@ -84,7 +85,7 @@ class XmlSchemaValidatorTest extends TestCase
     public function test_is_built_from_schema($schema)
     {
         $validator = new XmlSchemaValidator($schema);
-        $xml = Xml::load(file_get_contents(TEST_FILES_PATH.'batman.xml'));
+        $xml = XmlUtility::load(file_get_contents(TEST_FILES_PATH.'batman.xml'));
         Check::that($validator->validate($xml))->isTrue();
     }
 
@@ -92,7 +93,7 @@ class XmlSchemaValidatorTest extends TestCase
     {
         $heroPath = TEST_FILES_PATH.'hero.xsd';
         $hero = file_get_contents($heroPath);
-        $heroDocument = Xml::load($hero);
+        $heroDocument = XmlUtility::load($hero);
         yield from [
             'a schema file path' => [$heroPath],
             'a schema string' => [$hero],

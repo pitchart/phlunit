@@ -3,8 +3,7 @@
 
 namespace Pitchart\Phlunit\Validator;
 
-use LSS\Array2XML;
-use PHPUnit\Util\Xml;
+use Pitchart\Phlunit\Constraint\Xml\XmlUtility;
 use function Pitchart\Transformer\transform;
 
 class XmlSchemaValidator
@@ -85,8 +84,8 @@ class XmlSchemaValidator
     private function asDomDocument($schema): \DOMDocument
     {
         if (\is_string($schema) && \file_exists($schema) && \is_file($schema)) {
-            return Xml::loadFile($schema);
+            return XmlUtility::loadFile($schema);
         }
-        return  Xml::load($schema);
+        return  XmlUtility::load($schema);
     }
 }

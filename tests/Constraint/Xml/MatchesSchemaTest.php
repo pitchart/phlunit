@@ -4,6 +4,7 @@ namespace Tests\Pitchart\Phlunit\Constraint\Xml;
 
 use PHPUnit\Util\Xml;
 use Pitchart\Phlunit\Constraint\Xml\MatchesSchema;
+use Pitchart\Phlunit\Constraint\Xml\XmlUtility;
 use Tests\Pitchart\Phlunit\Constraint\ConstraintTestCase;
 use Tests\Pitchart\Phlunit\Fixture\Person;
 
@@ -34,7 +35,7 @@ class MatchesSchemaTest extends ConstraintTestCase
     public function test_succeeds_when_sut_is_a_DOMDocument_matching_provided_format()
     {
 
-        $this->assertTrue($this->constraint->evaluate(Xml::loadFile(TEST_FILES_PATH.'batman.xml'), '', true));
+        $this->assertTrue($this->constraint->evaluate(XmlUtility::loadFile(TEST_FILES_PATH.'batman.xml'), '', true));
     }
 
     public function test_fails_when_sut_is_more_than_provided_format()
