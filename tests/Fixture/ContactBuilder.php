@@ -22,11 +22,10 @@ use Pitchart\Phlunit\Builder;
  */
 class ContactBuilder extends Builder
 {
-    public function __construct(array $arguments)
+    protected function __construct(array $arguments)
     {
         parent::__construct(Contact::class, $arguments);
     }
-
 
     public static function create() {
         return new self([
@@ -50,6 +49,14 @@ class ContactBuilder extends Builder
             'name' => 'Batman',
             'dateOfBirth' => new \DateTimeImmutable(),
 
+        ]);
+    }
+
+    public static function createWithMissingArgumentKeys() {
+        return new self([
+            'Wayne',
+            'Bruce',
+            new \DateTimeImmutable(),
         ]);
     }
 

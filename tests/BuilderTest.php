@@ -34,6 +34,14 @@ class BuilderTest extends TestCase
             ->that()->isDescribedBy('The following arguments key(s) must be provided with default value : [dateOfBirth]');
     }
 
+    public function test_can_not_build_when_constructor_argument_key_is_missing()
+    {
+        Check::thatCall([ContactBuilder::class, 'createWithMissingArgumentKeys'])
+            ->throws(\InvalidArgumentException::class)
+            ->that()->isDescribedBy('The following arguments key(s) must be provided with default value : [firstname, lastname, dateOfBirth]');
+
+    }
+
     public function test_builds_when_some_provided_arguments_are_not_for_constructor_usage()
     {
         $contact = ContactBuilder::createWithMoreArgumentsThanConstructorNeeds()->build();

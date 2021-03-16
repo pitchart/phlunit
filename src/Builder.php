@@ -37,7 +37,9 @@ abstract class Builder
         $this->extractConstructorArguments($staticFactoryMethod);
 
         $missingConstructorArguments = transform($this->constructorArguments)
-            ->diff(\array_keys($arguments))
+            ->remove(static function (string $key) use ($arguments) {
+                return \array_key_exists($key, $arguments);
+            })
             ->toArray()
         ;
 

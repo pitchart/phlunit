@@ -17,7 +17,10 @@ class SimpleAddressBuilder extends Builder
     public static function create()
     {
         return new self([
-            'Batman', 'On top of the hill', '53540', 'Gotham City'
+            'recipient' => 'Batman',
+            'line1' => 'On top of the hill',
+            'city' => 'Gotham City',
+            'zip' => '53540',
         ]);
     }
 
