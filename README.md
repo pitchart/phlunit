@@ -10,7 +10,7 @@ __*Fluent assertions for phpunit.*__
 
 ## Why ?
 
-Phlunit will make your tests:
+`Phlunit` will make your tests:
 
 - **fluent to write:** juste type `Check::that($sut)` and let auto-completion guide you.
 - **fluent to read:** very close to plain English, making it easier for non-technical people to read test code.
@@ -27,6 +27,8 @@ composer require --dev pitchart/phlunit
 Write test cases and test methods as usual, just switch to `Check::that()` to write your assertions :
 
 ```php
+use Pitchart\Phlunit\Check;
+
 $integers = [1, 2, 3, 4, 5, 42];
 Check::that($integers)->contains(2, 3, 42);
 
@@ -61,16 +63,26 @@ Check::that($response)
 ```
 
 `Phlunit` provides checks for the following types and classes :
- - string
- - boolean
- - integer
- - float
- - array
+ - string, boolean, integer, float, array
+ - xml and json formats
  - iterable
  - callable
  - Throwable
  - ResponseInterface (PSR-7)
  - DateTimeInterface
+
+## Syntactic sugar
+
+Improve readability using `that()` and `andThat()` methods :
+
+```php
+Check::thatCall([$spiderman, 'saveGotham'])->with('batman', 'superman')
+    ->throws(\LogicException::class)
+    ->that()->isDescribedBy("Sorry, we are not in the same univers!");
+
+Check::that($batman->getFirstname())->isEqualTo('Bruce')
+    ->andThat($batman->getLastname())->isEqualTo('Wayne');
+```
 
 ## Need more checks ?
 
@@ -90,7 +102,7 @@ Check::that($sut)->is(new CustomConstraint());
 ### Create custom Check class
 
 ```php
-class CustomClassCheck
+class CustomClassCheck implements FluentCheck
 {
     //...
 }
@@ -102,6 +114,70 @@ Check::registerChecksFor(Custom::class, CustomClassChecks::class);
 Check::that(Check::that(new Custom))->isAnInstanceOf(CustomClassChecks::class);
 ```
 
+## Test data builder
+
+`Phlunit` provides a simple and extensible way to implement the [test data builder pattern](http://www.natpryce.com/articles/000714.html).
+
+Here is the recommended way to use it, to not break the fluent experience:
+
+```php
+use Pitchart\Phlunit\Builder;
+
+class HeroBuilder extends Builder
+{
+    protected function __construct(array $arguments)
+    {
+        parent::__construct(Hero::class, $arguments);
+    }
+    
+    public function build(): Hero
+    {
+        return $this->buildInstance();
+    }
+    
+    public static function create(): self
+    {
+        return new self([
+            'name' => 'Batman',
+            'firstname' => 'Bruce',
+            'lastname' => 'Wayne',
+        ]);
+    }
+    
+    public static function batman(): self
+    {
+        return self::create();
+    }
+}
+
+// Use it in your test cases:
+$batman = HeroBuilder::batman()->build();
+
+$superman = HeroBuilder::create()
+    ->withName('Superman')
+    ->andFirstname('Clark')
+    ->andLastname('Kent')
+    ->build()
+;
+```
+
+## Expect exceptions
+
+`Phlunit` provides a fluent way to expect exception from your code, using the `Expect` class:
+
+```php
+use Pitchart\Phlunit\Expect;
+
+public function test_an_exception_is_thrown()
+{
+    Expect::after($this)
+        ->anException(\InvalidArgumentException)
+        ->describedBy('An exception message')
+        ->havingCode(42);
+    
+    // Act
+}
+```
 
 ## Credits
 
