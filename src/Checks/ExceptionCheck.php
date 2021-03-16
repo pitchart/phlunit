@@ -42,7 +42,7 @@ class ExceptionCheck implements FluentCheck
     /**
      * @param string $className
      *
-     * @return ExceptionCheck
+     * @return static
      */
     public function isAnInstanceOf(string $className): self
     {

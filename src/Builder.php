@@ -10,6 +10,9 @@ abstract class Builder
     /** @var array */
     private $arguments = [];
 
+    /**
+     * @var array
+     */
     private $constructorArguments = [];
 
     /** @var string|null */
@@ -37,7 +40,7 @@ abstract class Builder
         $this->extractConstructorArguments($staticFactoryMethod);
 
         $missingConstructorArguments = transform($this->constructorArguments)
-            ->remove(static function (string $key) use ($arguments) {
+            ->remove(static function(string $key) use ($arguments) {
                 return \array_key_exists($key, $arguments);
             })
             ->toArray()
@@ -113,8 +116,10 @@ abstract class Builder
      * Extracts the names of the instanciation method arguments
      *
      * @param null|string $staticFactoryMethod
+     *
+     * @return void
      */
-    private function extractConstructorArguments(?string $staticFactoryMethod)
+    private function extractConstructorArguments(?string $staticFactoryMethod): void
     {
         $instanciationMethod = $staticFactoryMethod === null ? $this->reflection->getConstructor() : $this->reflection->getMethod($staticFactoryMethod);
 

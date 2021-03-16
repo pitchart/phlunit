@@ -119,6 +119,9 @@ class ContainsExactly extends Constraint
         return  transform($other)->diff($elements)->toArray();
     }
 
+    /**
+     * @return string
+     */
     public function toString(): string
     {
         return 'iterable contains %d expected elements because %s.';

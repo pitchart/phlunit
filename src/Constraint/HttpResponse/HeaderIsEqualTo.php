@@ -42,6 +42,9 @@ class HeaderIsEqualTo extends Constraint
         return false;
     }
 
+    /**
+     * @return string
+     */
     protected function failureDescription($other): string
     {
         return $this->exporter()->export($other) . ' ' . $this->toString();

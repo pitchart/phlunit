@@ -33,19 +33,19 @@ class ValidationError
      */
     private $message;
 
-    private function __construct($level, $code, $message)
+    private function __construct(string $level, $code, string $message)
     {
         $this->level = $level;
-        $this->code = $code;
+        $this->code = (int) $code;
         $this->message = $message;
     }
 
-    public static function emptyXml()
+    public static function emptyXml(): self
     {
         return new self(self::ERROR, "", "Provided content is not valid XML.");
     }
 
-    public static function fromLibXmlError(\LibXMLError $error)
+    public static function fromLibXmlError(\LibXMLError $error): self
     {
         return new ValidationError(
             \LIBXML_ERR_WARNING == $error->level ? self::WARNING : self::ERROR,

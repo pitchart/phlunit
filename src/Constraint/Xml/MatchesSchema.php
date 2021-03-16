@@ -52,6 +52,9 @@ class MatchesSchema extends Constraint
         return  XmlUtility::load($schema);
     }
 
+    /**
+     * @return string
+     */
     public function toString(): string
     {
         return 'matches xsd schema ' . $this->xsd->saveXML() . " because:\n"
@@ -60,6 +63,9 @@ class MatchesSchema extends Constraint
             }, $this->validator->getErrors()));
     }
 
+    /**
+     * @return string
+     */
     protected function failureDescription($other): string
     {
         $other = $this->exporter()->export($this->asDomDocument($other)->saveXML());

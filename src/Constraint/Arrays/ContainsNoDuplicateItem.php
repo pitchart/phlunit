@@ -13,6 +13,11 @@ class ContainsNoDuplicateItem extends Constraint
         return \count($this->deduplicate($other)) === \count($other);
     }
 
+    /**
+     * @return (mixed|null)[]
+     *
+     * @psalm-return non-empty-list<mixed|null>
+     */
     private function deduplicate(array $array): array
     {
         $unique = [];
@@ -32,6 +37,9 @@ class ContainsNoDuplicateItem extends Constraint
         return $unique;
     }
 
+    /**
+     * @return string
+     */
     public function toString(): string
     {
         return 'contains no duplicate item';
