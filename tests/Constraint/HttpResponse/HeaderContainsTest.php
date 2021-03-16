@@ -3,6 +3,7 @@
 namespace Tests\Pitchart\Phlunit\Constraint\HttpResponse;
 
 use GuzzleHttp\Psr7\Response;
+use Pitchart\Phlunit\Check;
 use Pitchart\Phlunit\Constraint\HttpResponse\HeaderContains;
 use Tests\Pitchart\Phlunit\Constraint\ConstraintTestCase;
 use Tests\Pitchart\Phlunit\Constraint\UniqueConstraint;
@@ -25,7 +26,9 @@ class HeaderContainsTest extends ConstraintTestCase
     {
         $response = (new Response(200))->withHeader('test', 'test');
 
-        $this->assertTrue($this->constraint->evaluate($response, '', true));
+        $evaluation = $this->constraint->evaluate($response, '', true);
+
+        Check::that($evaluation)->isTrue();
     }
 
     /**
@@ -42,7 +45,9 @@ class HeaderContainsTest extends ConstraintTestCase
 
         $constraint = new HeaderContains('Accept-Charset', $part);
 
-        $this->assertTrue($constraint->evaluate($response, '', true));
+        $evaluation = $constraint->evaluate($response, '', true);
+
+        Check::that($evaluation)->isTrue();
     }
 
     public function matchingPartsProvider()
@@ -59,14 +64,18 @@ class HeaderContainsTest extends ConstraintTestCase
     {
         $response = (new Response(200))->withHeader('test', 'fail');
 
-        $this->assertFalse($this->constraint->evaluate($response, '', true));
+        $evaluation = $this->constraint->evaluate($response, '', true);
+
+        Check::that($evaluation)->isFalse();
     }
 
     public function test_fails_for_single_value_header_with_wrong_value()
     {
         $response = (new Response(200))->withHeader('test', 'fail');
 
-        $this->assertFalse($this->constraint->evaluate($response, '', true));
+        $evaluation = $this->constraint->evaluate($response, '', true);
+
+        Check::that($evaluation)->isFalse();
     }
 
     public function test_fails_for_multi_values_header_with_wrong_value()
@@ -78,7 +87,9 @@ class HeaderContainsTest extends ConstraintTestCase
 
         $constraint = new HeaderContains('Accept-Charset', 'missing value');
 
-        $this->assertFalse($constraint->evaluate($response, '', true));
+        $evaluation = $constraint->evaluate($response, '', true);
+
+        Check::that($evaluation)->isFalse();
     }
 
     public function test_fails_with_a_clear_and_complete_error_message()

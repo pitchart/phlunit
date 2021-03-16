@@ -2,6 +2,7 @@
 
 namespace Tests\Pitchart\Phlunit\Constraint\Arrays;
 
+use Pitchart\Phlunit\Check;
 use Tests\Pitchart\Phlunit\Fixture\Person;
 use Pitchart\Phlunit\Constraint\Arrays\ContainsExactly;
 use Tests\Pitchart\Phlunit\Constraint\ConstraintTestCase;
@@ -27,43 +28,53 @@ class ContainsExactlyTest extends ConstraintTestCase
      */
     public function test_succeeds_when_elements_are_the_sames_in_the_same_order(iterable $iterable)
     {
-        $this->assertTrue($this->constraint->evaluate($iterable, '', true));
+        $evaluation = $this->constraint->evaluate($iterable, '', true);
+
+        Check::that($evaluation)->isTrue();
     }
 
     public function test_succeeds_with_objects_collections()
     {
-        $this->assertTrue(
-            (new ContainsExactly(new Person('Batman'), new Person('Robin')))
-                ->evaluate(
-                    [new Person('Batman'), new Person('Robin')],
-                    '', true
-                )
-        );
+        $constraint = new ContainsExactly(new Person('Batman'), new Person('Robin'));
+
+        $evaluation = $constraint->evaluate([new Person('Batman'), new Person('Robin')], '', true);
+
+        Check::that($evaluation)->isTrue();
     }
 
     public function test_fails_when_sut_has_more_elements()
     {
-        $this->assertFalse($this->constraint->evaluate([1, 2, 3, 4], '', true));
+        $evaluation = $this->constraint->evaluate([1, 2, 3, 4], '', true);
+
+        Check::that($evaluation)->isFalse();
     }
 
     public function test_fails_when_sut_has_no_element()
     {
-        $this->assertFalse($this->constraint->evaluate([], '', true));
+        $evaluation = $this->constraint->evaluate([], '', true);
+
+        Check::that($evaluation)->isFalse();
     }
 
     public function test_fails_when_sut_has_less_elements()
     {
-        $this->assertFalse($this->constraint->evaluate([1, 2], '', true));
+        $evaluation = $this->constraint->evaluate([1, 2], '', true);
+
+        Check::that($evaluation)->isFalse();
     }
 
     public function test_fails_when_sut_has_missing_and_unexpected_elements()
     {
-        $this->assertFalse($this->constraint->evaluate([1, 4], '', true));
+        $evaluation = $this->constraint->evaluate([1, 4], '', true);
+
+        Check::that($evaluation)->isFalse();
     }
 
     public function test_fails_when_elements_are_not_in_the_same_order()
     {
-        $this->assertFalse($this->constraint->evaluate([1, 3, 2], '', true));
+        $evaluation = $this->constraint->evaluate([1, 3, 2], '', true);
+
+        Check::that($evaluation)->isFalse();
     }
 
     /**

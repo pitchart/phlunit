@@ -7,6 +7,7 @@ use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\SelfDescribing;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\TestFailure;
+use Pitchart\Phlunit\Check;
 
 abstract class ConstraintTestCase extends TestCase
 {
@@ -21,11 +22,14 @@ abstract class ConstraintTestCase extends TestCase
 
         $reflection = new \ReflectionClass($className);
 
-        $this->assertTrue($reflection->implementsInterface(\Countable::class), \sprintf(
-            'Failed to assert that "%s" implements "%s".',
-            $className,
-            \Countable::class
-        ));
+        Check::that($reflection->implementsInterface(\Countable::class))
+            ->withMessage(\sprintf(
+                'Failed to assert that "%s" implements "%s".',
+                $className,
+                \Countable::class
+            ))
+            ->isTrue()
+        ;
     }
 
     final public function test_is_self_describing(): void
@@ -34,11 +38,14 @@ abstract class ConstraintTestCase extends TestCase
 
         $reflection = new \ReflectionClass($className);
 
-        $this->assertTrue($reflection->implementsInterface(SelfDescribing::class), \sprintf(
-            'Failed to assert that "%s" implements "%s".',
-            $className,
-            SelfDescribing::class
-        ));
+        Check::that($reflection->implementsInterface(SelfDescribing::class))
+            ->withMessage(\sprintf(
+                'Failed to assert that "%s" implements "%s".',
+                $className,
+                SelfDescribing::class
+            ))
+            ->isTrue()
+        ;
     }
 
     /**
@@ -59,13 +66,11 @@ abstract class ConstraintTestCase extends TestCase
         try {
             $this->constraint->evaluate($failingValue, $description);
         } catch (ExpectationFailedException $e) {
-            $this->assertEquals(
+            Check::that(TestFailure::exceptionToString($e))->isEqualTo(
                 <<<EOF
 $message
 
 EOF
-                ,
-                TestFailure::exceptionToString($e)
             );
 
             return;

@@ -2,6 +2,7 @@
 
 namespace Tests\Pitchart\Phlunit\Constraint\Json;
 
+use Pitchart\Phlunit\Check;
 use Pitchart\Phlunit\Constraint\Json\MatchesSchema;
 use PHPUnit\Framework\TestCase;
 use Tests\Pitchart\Phlunit\Constraint\ConstraintTestCase;
@@ -21,32 +22,44 @@ class MatchesSchemaTest extends ConstraintTestCase
 
     public function test_succeeds_when_sut_is_a_string_matching_provided_format()
     {
-        $this->assertTrue($this->constraint->evaluate('{"name": "Batman"}', '', true));
+        $evaluation = $this->constraint->evaluate('{"name": "Batman"}', '', true);
+
+        Check::that($evaluation)->isTrue();
     }
 
     public function test_succeeds_when_sut_is_an_array_matching_provided_format()
     {
-        $this->assertTrue($this->constraint->evaluate(['name' => 'Batman'], '', true));
+        $evaluation = $this->constraint->evaluate(['name' => 'Batman'], '', true);
+
+        Check::that($evaluation)->isTrue();
     }
 
     public function test_succeeds_when_sut_is_an_object_matching_provided_format()
     {
-        $this->assertTrue($this->constraint->evaluate(new Person('Batman'), '', true));
+        $evaluation = $this->constraint->evaluate(new Person('Batman'), '', true);
+
+        Check::that($evaluation)->isTrue();
     }
 
     public function test_succeeds_when_sut_is_is_more_than_provided_format()
     {
-        $this->assertTrue($this->constraint->evaluate(['name' => 'Batman', 'city' => 'Gotham City'], '', true));
+        $evaluation = $this->constraint->evaluate(['name' => 'Batman', 'city' => 'Gotham City'], '', true);
+
+        Check::that($evaluation)->isTrue();
     }
 
     public function test_fails_when_sut_has_a_property_missing()
     {
-        $this->assertFalse($this->constraint->evaluate(['lastname' => 'Batman'], '', true));
+        $evaluation = $this->constraint->evaluate(['lastname' => 'Batman'], '', true);
+
+        Check::that($evaluation)->isFalse();
     }
 
     public function test_fails_when_sut_do_not_respect_format()
     {
-        $this->assertFalse($this->constraint->evaluate(['name' => null], '', true));
+        $evaluation = $this->constraint->evaluate(['name' => null], '', true);
+
+        Check::that($evaluation)->isFalse();
     }
 
     public function test_fails_with_a_clear_and_complete_error_message()

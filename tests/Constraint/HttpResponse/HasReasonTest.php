@@ -3,6 +3,7 @@
 namespace Tests\Pitchart\Phlunit\Constraint\HttpResponse;
 
 use GuzzleHttp\Psr7\Response;
+use Pitchart\Phlunit\Check;
 use Pitchart\Phlunit\Constraint\HttpResponse\HasHeader;
 use Pitchart\Phlunit\Constraint\HttpResponse\HasReason;
 use Pitchart\Phlunit\Constraint\HttpResponse\HasStatusCode;
@@ -27,19 +28,25 @@ class HasReasonTest extends ConstraintTestCase
     {
         $response = new Response(200);
 
-        $this->assertTrue($this->constraint->evaluate($response, '', true));
+        $evaluation = $this->constraint->evaluate($response, '', true);
+
+        Check::that($evaluation)->isTrue();
     }
 
     public function test_fails_when_the_response_does_not_contain_the_header()
     {
         $response = new Response(400);
 
-        $this->assertFalse($this->constraint->evaluate($response, '', true));
+        $evaluation = $this->constraint->evaluate($response, '', true);
+
+        Check::that($evaluation)->isFalse();
     }
 
     public function test_fails_when_evaluates_anything_but_a_response()
     {
-        $this->assertFalse($this->constraint->evaluate('test', '', true));
+        $evalutaion = $this->constraint->evaluate('test', '', true);
+
+        Check::that($evalutaion)->isFalse();
     }
 
     public function test_fails_with_a_clear_and_complete_error_message()
