@@ -5,8 +5,10 @@ namespace Tests\Pitchart\Phlunit\Checks;
 use Pitchart\Phlunit\Check;
 use Pitchart\Phlunit\Checks\FloatCheck;
 use PHPUnit\Framework\TestCase;
+use Pitchart\Phlunit\Checks\FluentCheck;
+use Tests\Pitchart\Phlunit\CheckTestCase;
 
-class FloatCheckTest extends TestCase
+class FloatCheckTest extends CheckTestCase
 {
 
     public function test_should_respect_equality()
@@ -50,4 +52,11 @@ class FloatCheckTest extends TestCase
             ->and->strictly()->isNotEqualTo(1.6)
         ;
     }
+
+    public function checkClass(): FluentCheck
+    {
+        return Check::that(4.2);
+    }
+
+
 }

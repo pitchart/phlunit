@@ -9,9 +9,11 @@ use PHPUnit\Framework\Constraint\Exception as ExceptionConstraint;
 use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestCase;
 use Pitchart\Phlunit\Check;
+use Pitchart\Phlunit\Checks\FluentCheck;
 use Pitchart\Phlunit\Expect;
+use Tests\Pitchart\Phlunit\CheckTestCase;
 
-class DateTimeCheckTest extends TestCase
+class DateTimeCheckTest extends CheckTestCase
 {
     public function test_fails_with_identifier_message()
     {
@@ -75,4 +77,11 @@ class DateTimeCheckTest extends TestCase
             ->isSameDayAs(\DateTime::createFromFormat('Y-m-d','1983-04-28'))
         ;
     }
+
+    public function checkClass(): FluentCheck
+    {
+        return Check::that(new \DateTime);
+    }
+
+
 }

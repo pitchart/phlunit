@@ -4,6 +4,7 @@
 namespace Pitchart\Phlunit\Checks;
 
 use PHPUnit\Framework\Assert;
+use Pitchart\Phlunit\Checks\Mixin\FluentChecks;
 use Pitchart\Phlunit\Checks\Mixin\TypeCheck;
 use Pitchart\Phlunit\Checks\Mixin\WithMessage;
 
@@ -18,7 +19,7 @@ use Pitchart\Phlunit\Checks\Mixin\WithMessage;
  */
 class BooleanCheck implements FluentCheck
 {
-    use TypeCheck, WithMessage;
+    use TypeCheck, FluentChecks, WithMessage;
 
     /**
      * @var mixed

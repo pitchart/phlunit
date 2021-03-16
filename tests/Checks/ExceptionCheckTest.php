@@ -4,8 +4,10 @@ namespace Tests\Pitchart\Phlunit\Checks;
 
 use Pitchart\Phlunit\Check;
 use PHPUnit\Framework\TestCase;
+use Pitchart\Phlunit\Checks\FluentCheck;
+use Tests\Pitchart\Phlunit\CheckTestCase;
 
-class ExceptionCheckTest extends TestCase
+class ExceptionCheckTest extends CheckTestCase
 {
     public function test_checks_is_an_instance_of_exception_class()
     {
@@ -21,4 +23,11 @@ class ExceptionCheckTest extends TestCase
     {
         Check::that(new \LogicException('logic exception', 200))->isDescribedBy('logic exception');
     }
+
+    public function checkClass(): FluentCheck
+    {
+        return Check::that(new \Exception);
+    }
+
+
 }

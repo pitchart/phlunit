@@ -3,12 +3,13 @@
 namespace Tests\Pitchart\Phlunit\Checks;
 
 use Pitchart\Phlunit\Check;
+use Pitchart\Phlunit\Checks\FluentCheck;
 use Pitchart\Phlunit\Checks\XmlCheck;
 use PHPUnit\Framework\TestCase;
+use Tests\Pitchart\Phlunit\CheckTestCase;
 
-class XmlChecksTest extends TestCase
+class XmlChecksTest extends CheckTestCase
 {
-
 
     public function test_is_accessed_from_string()
     {
@@ -16,7 +17,6 @@ class XmlChecksTest extends TestCase
 
         Check::that($check)->isAnInstanceOf(XmlCheck::class);
     }
-
 
     /**
      * @param XmlCheck $check
@@ -93,4 +93,11 @@ class XmlChecksTest extends TestCase
                 <level>100</level>
             </hero>';
     }
+
+    public function checkClass(): FluentCheck
+    {
+        return Check::that($this->superman())->asXml();
+    }
+
+
 }

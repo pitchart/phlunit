@@ -5,14 +5,16 @@ namespace Tests\Pitchart\Phlunit\Checks;
 
 
 use PHPUnit\Framework\TestCase;
+use Pitchart\Phlunit\Checks\FluentCheck;
 use Pitchart\Phlunit\Checks\GenericCheck;
 use Pitchart\Phlunit\Checks\DateTimeCheck;
 use Pitchart\Phlunit\Check;
 use Pitchart\Phlunit\Checks\IntegerCheck;
 use Pitchart\Phlunit\Checks\JsonCheck;
 use Pitchart\Phlunit\Checks\StringCheck;
+use Tests\Pitchart\Phlunit\CheckTestCase;
 
-class StringCheckTest extends TestCase
+class StringCheckTest extends CheckTestCase
 {
     /**
      * @param iterable $sut
@@ -172,5 +174,11 @@ class StringCheckTest extends TestCase
 
         Check::that($check)->isAnInstanceOf(JsonCheck::class);
     }
+
+    public function checkClass(): FluentCheck
+    {
+        return Check::that('tdd');
+    }
+
 
 }

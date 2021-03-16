@@ -7,6 +7,7 @@ use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\Exception as ExceptionConstraint;
 use PHPUnit\Framework\Constraint\ExceptionCode;
 use PHPUnit\Framework\Constraint\ExceptionMessage;
+use Pitchart\Phlunit\Checks\Mixin\FluentChecks;
 use Pitchart\Phlunit\Checks\Mixin\TypeCheck;
 use Pitchart\Phlunit\Checks\Mixin\WithMessage;
 
@@ -22,7 +23,7 @@ use Pitchart\Phlunit\Checks\Mixin\WithMessage;
  */
 class ExceptionCheck implements FluentCheck
 {
-    use TypeCheck, WithMessage;
+    use TypeCheck, FluentChecks, WithMessage;
 
     /**
      * @var \Throwable

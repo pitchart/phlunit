@@ -6,9 +6,11 @@ namespace Tests\Pitchart\Phlunit\Checks;
 
 use PHPUnit\Framework\TestCase;
 use Pitchart\Phlunit\Check;
+use Pitchart\Phlunit\Checks\FluentCheck;
 use Pitchart\Phlunit\Checks\JsonCheck;
+use Tests\Pitchart\Phlunit\CheckTestCase;
 
-class JsonCheckTest extends TestCase
+class JsonCheckTest extends CheckTestCase
 {
     /**
      * @param string $sut
@@ -33,5 +35,10 @@ class JsonCheckTest extends TestCase
             'matchesSchema' => ['{"name":"Batman"}', 'matchesSchema', [['type' => 'object', 'required' => ['name'], 'properties' => ['name' => ['type' => 'string']]],
             ]]
         ];
+    }
+
+    public function checkClass(): FluentCheck
+    {
+        return Check::that('{"name":"Batman"}')->asJson();
     }
 }

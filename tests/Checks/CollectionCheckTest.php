@@ -9,8 +9,10 @@ use PHPUnit\Framework\TestCase;
 use Pitchart\Phlunit\Checks\ArrayCheck;
 use Pitchart\Phlunit\Checks\CollectionCheck;
 use Pitchart\Phlunit\Check;
+use Pitchart\Phlunit\Checks\FluentCheck;
+use Tests\Pitchart\Phlunit\CheckTestCase;
 
-class CollectionCheckTest extends TestCase
+class CollectionCheckTest extends CheckTestCase
 {
     public function test_emptyness()
     {
@@ -119,6 +121,11 @@ class CollectionCheckTest extends TestCase
             'isEqualTo' => [[1, 2, 3], 'isEqualTo', [[1, 2, 3]]],
             'isNotEqualTo' => [[1, 2, 3], 'isNotEqualTo', [[1, 2]]],
         ];
+    }
+
+    public function checkClass(): FluentCheck
+    {
+        return Check::that([]);
     }
 
 }

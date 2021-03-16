@@ -5,6 +5,7 @@ namespace Pitchart\Phlunit\Checks;
 
 use PHPUnit\Framework\Assert;
 use Pitchart\Phlunit\Checks\Mixin\ConstraintCheck;
+use Pitchart\Phlunit\Checks\Mixin\FluentChecks;
 use Pitchart\Phlunit\Checks\Mixin\TypeCheck;
 use Pitchart\Phlunit\Checks\Mixin\WithMessage;
 use Pitchart\Phlunit\Constraint\Json\MatchesSchema;
@@ -20,7 +21,7 @@ use Pitchart\Phlunit\Constraint\Json\MatchesSchema;
  */
 class JsonCheck implements FluentCheck
 {
-    use WithMessage, ConstraintCheck, TypeCheck;
+    use WithMessage, ConstraintCheck, TypeCheck, FluentChecks;
 
     /**
      * @var string

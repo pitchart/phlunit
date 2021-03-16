@@ -6,6 +6,7 @@ namespace Pitchart\Phlunit\Checks;
 use PHPUnit\Framework\Assert;
 use Pitchart\Phlunit\Checks\Converter\ToDateTime;
 use Pitchart\Phlunit\Checks\Mixin\ConstraintCheck;
+use Pitchart\Phlunit\Checks\Mixin\FluentChecks;
 use Pitchart\Phlunit\Checks\Mixin\TypeCheck;
 use Pitchart\Phlunit\Checks\Mixin\WithMessage;
 
@@ -20,7 +21,7 @@ use Pitchart\Phlunit\Checks\Mixin\WithMessage;
  */
 class IntegerCheck implements FluentCheck
 {
-    use TypeCheck, ConstraintCheck, WithMessage;
+    use TypeCheck, FluentChecks, ConstraintCheck, WithMessage;
     use ToDateTime { asDateTime as asDateTimeWithFormat; }
 
     /**
