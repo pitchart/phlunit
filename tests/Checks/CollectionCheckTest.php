@@ -116,6 +116,8 @@ class CollectionCheckTest extends TestCase
             'containsExactly' => [[1, 2, 3], 'containsExactly', [1, 2, 3]],
             'containsSet' => [[1, 2, 3], 'containsSet', [1, 2]],
             'containsNoDuplicateItem ' => [[1, 2, 3], 'containsNoDuplicateItem', []],
+            'isEqualTo' => [[1, 2, 3], 'isEqualTo', [[1, 2, 3]]],
+            'isNotEqualTo' => [[1, 2, 3], 'isNotEqualTo', [[1, 2]]],
         ];
     }
 

@@ -136,8 +136,22 @@ class CollectionCheck implements FluentCheck
     public function isSubsetOf(...$set): self
     {
         $constraint = new IsSubset($set);
-        $this->resetMessage();
         Assert::assertThat($this->value, $constraint, $this->message);
+        $this->resetMessage();
+        return $this;
+    }
+
+    public function isEqualTo(iterable $iterable): self
+    {
+        Assert::assertEquals($iterable, $this->value, $this->message);
+        $this->resetMessage();
+        return $this;
+    }
+
+    public function isNotEqualTo(iterable $iterable): self
+    {
+        Assert::assertNotEquals($iterable, $this->value, $this->message);
+        $this->resetMessage();
         return $this;
     }
 }
