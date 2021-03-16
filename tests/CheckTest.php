@@ -61,10 +61,7 @@ class CheckTest extends TestCase
         ];
     }
 
-    /**
-     * @test
-     */
-    public function should_check_for_types()
+    public function test_checks_for_types()
     {
         $resource = fopen('php://temp', 'r');
         Check::that(1)->isInt();

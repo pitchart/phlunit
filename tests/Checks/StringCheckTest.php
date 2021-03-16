@@ -97,10 +97,7 @@ class StringCheckTest extends TestCase
         Check::that('Batman')->isNotEqualTo('Robin');
     }
 
-    /**
-     * @test
-     */
-    public function should_respect_string_extractions()
+    public function test_respects_string_extractions()
     {
         Check::that('foobar')
             ->startsWith('foo')
@@ -109,10 +106,7 @@ class StringCheckTest extends TestCase
         ;
     }
 
-    /**
-     * @test
-     */
-    public function should_respect_string_extractions_case_insensitively()
+    public function test_respects_string_extractions_case_insensitively()
     {
         Check::that('foobar')
             ->ignoringCase()
@@ -133,18 +127,12 @@ class StringCheckTest extends TestCase
             ->startsWith('foo');
     }
 
-    /**
-     * @test
-     */
-    public function should_respect_digits_formats()
+    public function test_respects_digits_formats()
     {
         Check::that('123456')->isDigits();
     }
 
-    /**
-     * @test
-     */
-    public function should_respect_letters_formats()
+    public function test_respects_letters_formats()
     {
         Check::that('azerty')->isLetters();
     }

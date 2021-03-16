@@ -72,10 +72,7 @@ class CollectionCheckTest extends TestCase
         Check::that([1, 2, 3, 4])->containsNoDuplicateItem();
     }
 
-    /**
-     * @test
-     */
-    public function should_check_arrays()
+    public function test_checks_arrays()
     {
         Check::that([0, 1, 2])
             ->hasElementAt(1)
