@@ -49,7 +49,7 @@ class FloatCheckTest extends CheckTestCase
         Check::that(1.5)->withDelta(0.5)->isEqualTo(2);
         Check::that(1.5)
             ->withDelta(0.2)->isNotEqualTo(2)
-            ->and->strictly()->isNotEqualTo(1.6)
+            ->and()->strictly()->isNotEqualTo(1.6)
         ;
     }
 

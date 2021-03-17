@@ -79,13 +79,13 @@ class CheckTest extends TestCase
 
     public function test_has_syntactic_sugar_to_help_writing_close_to_plain_english_sentenses()
     {
-        Check::that(1)->isGreaterThan(0)->and->isLessThan(2);
-        Check::that(function() {return 2;})->hasAResult()->which->isLessThan(3);
+        Check::that(1)->isGreaterThan(0)->and()->isLessThan(2);
+        Check::that(function() {return 2;})->hasAResult()->which()->isLessThan(3);
 
         $this->expectException(\Error::class);
-        $this->expectExceptionMessage(sprintf('Undefined property: %s::$unavailableWord', IntegerCheck::class));
+        $this->expectExceptionMessage(sprintf('Call to undefined method %s::unavailableMethod()', IntegerCheck::class));
 
-        Check::that(2)->isLessThan(3)->unavailableWord->isGreaterThan(1);
+        Check::that(2)->isLessThan(3)->unavailableMethod()->isGreaterThan(1);
     }
 
     public function test_can_be_extended_using_constraints()

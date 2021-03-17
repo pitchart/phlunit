@@ -41,7 +41,7 @@ class CollectionCheckTest extends CheckTestCase
     {
         Check::that([0, 1, 2])
             ->hasElementAt(1)
-            ->and->hasNoElementAt(12)
+            ->and()->hasNoElementAt(12)
             ->hasLength(3)
             ->hasNotLength(12)
             ->contains(1, 2)

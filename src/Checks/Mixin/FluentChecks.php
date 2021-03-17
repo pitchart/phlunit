@@ -29,13 +29,8 @@ trait FluentChecks
 {
     /**
      * @template T
-     *
-     * @param mixed $sut
-     *
-     * @psalm-param T of mixed
-     *
      * @psalm-return FluentCheck<T>
-     * @return \Pitchart\Phlunit\Checks\XmlCheck
+     * @return BooleanCheck|GenericCheck|CallableCheck|CollectionCheck|ResponseCheck|ArrayCheck|DateTimeCheck|StringCheck|ExceptionCheck|FloatCheck|IntegerCheck
      */
     public function that(): self
     {
@@ -44,13 +39,20 @@ trait FluentChecks
 
     /**
      * @template T
-     *
      * @param mixed $sut
-     *
      * @psalm-param T of mixed
-     *
      * @psalm-return FluentCheck<T>
-     * @return \Pitchart\Phlunit\Checks\XmlCheck
+     * @return BooleanCheck|GenericCheck|CallableCheck|CollectionCheck|ResponseCheck|ArrayCheck|DateTimeCheck|StringCheck|ExceptionCheck|FloatCheck|IntegerCheck
+     */
+    public function andThat($sut): FluentCheck
+    {
+        return Check::that($sut);
+    }
+
+    /**
+     * @template T
+     * @psalm-return FluentCheck<T>
+     * @return BooleanCheck|GenericCheck|CallableCheck|CollectionCheck|ResponseCheck|ArrayCheck|DateTimeCheck|StringCheck|ExceptionCheck|FloatCheck|IntegerCheck
      */
     public function and(): self
     {
@@ -59,31 +61,12 @@ trait FluentChecks
 
     /**
      * @template T
-     *
-     * @param mixed $sut
-     *
-     * @psalm-param T of mixed
-     *
      * @psalm-return FluentCheck<T>
-     * @return \Pitchart\Phlunit\Checks\XmlCheck
+     * @return BooleanCheck|GenericCheck|CallableCheck|CollectionCheck|ResponseCheck|ArrayCheck|DateTimeCheck|StringCheck|ExceptionCheck|FloatCheck|IntegerCheck
      */
     public function which(): self
     {
         return $this;
     }
 
-    /**
-     * @template T
-     *
-     * @param mixed $sut
-     *
-     * @psalm-param T of mixed
-     *
-     * @psalm-return \Pitchart\Phlunit\Checks\FluentCheck<empty>
-     * @return \Pitchart\Phlunit\Checks\FluentCheck
-     */
-    public function andThat($sut): \Pitchart\Phlunit\Checks\FluentCheck
-    {
-        return Check::that($sut);
-    }
 }
