@@ -59,8 +59,10 @@ abstract class Builder
      *
      * @param $name
      * @param $value
+     *
+     * @return void
      */
-    final protected function setArgument($name, $value)
+    final protected function setArgument(string $name, $value): void
     {
         if (! \array_key_exists($name, $this->arguments)) {
             throw new \InvalidArgumentException("There is no argument $name");
