@@ -2,6 +2,7 @@
 
 namespace Tests\Pitchart\Phlunit\Constraint\String;
 
+use Pitchart\Phlunit\Check;
 use Pitchart\Phlunit\Constraint\String\IsDigits;
 use Tests\Pitchart\Phlunit\Constraint\ConstraintTestCase;
 use Tests\Pitchart\Phlunit\Constraint\UniqueConstraint;
@@ -22,12 +23,16 @@ class IsDigitsTest extends ConstraintTestCase
 
     public function test_successes_when_evaluate_digits_string()
     {
-        $this->assertTrue($this->constraint->evaluate('1234567890', '', true));
+        $evaluation = $this->constraint->evaluate('1234567890', '', true);
+
+        Check::that($evaluation)->isTrue();
     }
 
     public function test_fails_when_evaluate_non_digits_string()
     {
-        $this->assertFalse($this->constraint->evaluate('1234567890a', '', true));
+        $evaluation = $this->constraint->evaluate('1234567890a', '', true);
+
+        Check::that($evaluation)->isFalse();
     }
 
     public function test_fails_with_a_clear_and_complete_error_message()

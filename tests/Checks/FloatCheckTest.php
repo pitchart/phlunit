@@ -5,21 +5,23 @@ namespace Tests\Pitchart\Phlunit\Checks;
 use Pitchart\Phlunit\Check;
 use Pitchart\Phlunit\Checks\FloatCheck;
 use PHPUnit\Framework\TestCase;
+use Pitchart\Phlunit\Checks\FluentCheck;
+use Tests\Pitchart\Phlunit\CheckTestCase;
 
-class FloatCheckTest extends TestCase
+class FloatCheckTest extends CheckTestCase
 {
 
-    public function test_should_respect_equality()
+    public function test_respects_equality()
     {
         Check::that(1.5)->isEqualTo(1.5);
     }
 
-    public function test_should_respect_inequality()
+    public function test_respects_inequality()
     {
         Check::that(1.5)->isNotEqualTo(2);
     }
 
-    public function test_should_respect_empty()
+    public function test_respects_empty()
     {
         Check::that(0.)->isEmpty();
     }
@@ -27,12 +29,12 @@ class FloatCheckTest extends TestCase
     /**
      * @param $value
      */
-    public function test_should_respect_not_empty()
+    public function test_respects_not_empty()
     {
         Check::that(1.52)->isNotEmpty();
     }
 
-    public function test_should_respect_comparisons()
+    public function test_respects_comparisons()
     {
         Check::that(1.5)
             ->isGreaterThan(0)
@@ -47,7 +49,14 @@ class FloatCheckTest extends TestCase
         Check::that(1.5)->withDelta(0.5)->isEqualTo(2);
         Check::that(1.5)
             ->withDelta(0.2)->isNotEqualTo(2)
-            ->and->strictly()->isNotEqualTo(1.6)
+            ->and()->strictly()->isNotEqualTo(1.6)
         ;
     }
+
+    protected function checkClass(): FluentCheck
+    {
+        return Check::that(4.2);
+    }
+
+
 }

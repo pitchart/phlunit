@@ -2,6 +2,7 @@
 
 namespace Tests\Pitchart\Phlunit\Constraint\DateTime;
 
+use Pitchart\Phlunit\Check;
 use Pitchart\Phlunit\Constraint\DateTime\IsSameIgnoringMillis;
 use PHPUnit\Framework\TestCase;
 use Tests\Pitchart\Phlunit\Constraint\ConstraintTestCase;
@@ -24,18 +25,22 @@ class IsSameIgnoringMillisTest extends ConstraintTestCase
 
     public function test_successes_when_evaluate_prefixed_string()
     {
-        $this->assertTrue($this->constraint->evaluate(
+        $evaluation = $this->constraint->evaluate(
             \DateTime::createFromFormat('Y-m-d H:i:s', '1983-04-28 00:30:01'),
-            '', true)
+            '', true
         );
+
+        Check::that($evaluation)->isTrue();
     }
 
     public function test_fails_when_evaluate_non_prefixed_string()
     {
-        $this->assertFalse($this->constraint->evaluate(
+        $evaluation = $this->constraint->evaluate(
             \DateTime::createFromFormat('Y-m-d H:i:s', '1983-04-28 00:30:02'),
-            '', true)
+            '', true
         );
+
+        Check::that($evaluation)->isFalse();
     }
 
     public function test_fails_with_a_clear_and_complete_error_message()

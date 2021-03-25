@@ -2,6 +2,7 @@
 
 namespace Tests\Pitchart\Phlunit\Constraint\Arrays;
 
+use Pitchart\Phlunit\Check;
 use Pitchart\Phlunit\Constraint\Arrays\ContainsNoDuplicateItem;
 use Pitchart\Phlunit\Constraint\Arrays\ContainsSet;
 use Tests\Pitchart\Phlunit\Constraint\ConstraintTestCase;
@@ -28,18 +29,18 @@ class ContainsNoDuplicateItemTest extends ConstraintTestCase
      */
     public function test_successes_when_evaluates_iterables_not_containing_duplicate_item($iterable)
     {
-        $this->assertTrue($this->constraint->evaluate($iterable, '', true));
+        $evaluation = $this->constraint->evaluate($iterable, '', true);
+
+        Check::that($evaluation)->isTrue();
     }
 
     public function test_succeeds_with_objects_collections()
     {
-        $this->assertTrue(
-            (new ContainsNoDuplicateItem())
-                ->evaluate(
-                    [new Person('Batman'), new Person('Robin')],
-                    '', true
-                )
-        );
+        $constraint = new ContainsNoDuplicateItem();
+
+        $evaluation = $constraint->evaluate([new Person('Batman'), new Person('Robin')], '', true);
+
+        Check::that($evaluation)->isTrue();
     }
 
     public function containsSubsets()
@@ -57,7 +58,9 @@ class ContainsNoDuplicateItemTest extends ConstraintTestCase
 
     public function test_fails_when_evaluate_non_prefixed_string()
     {
-        $this->assertFalse($this->constraint->evaluate([1, 2, 3, 2, 4], '', true));
+        $evaluation = $this->constraint->evaluate([1, 2, 3, 2, 4], '', true);
+
+        Check::that($evaluation)->isFalse();
     }
 
     public function test_fails_with_a_clear_and_complete_error_message()

@@ -5,6 +5,7 @@ namespace Pitchart\Phlunit\Checks;
 
 use PHPUnit\Framework\Assert;
 use Pitchart\Phlunit\Checks\Mixin\ConstraintCheck;
+use Pitchart\Phlunit\Checks\Mixin\FluentChecks;
 use Pitchart\Phlunit\Checks\Mixin\TypeCheck;
 use Pitchart\Phlunit\Checks\Mixin\WithMessage;
 use Pitchart\Phlunit\Constraint\Arrays\ContainsExactly;
@@ -23,7 +24,7 @@ use Pitchart\Phlunit\Constraint\Arrays\IsSubset;
  */
 class CollectionCheck implements FluentCheck
 {
-    use TypeCheck, ConstraintCheck, WithMessage;
+    use TypeCheck, FluentChecks, ConstraintCheck, WithMessage;
 
     /**
      * @var iterable
@@ -136,8 +137,22 @@ class CollectionCheck implements FluentCheck
     public function isSubsetOf(...$set): self
     {
         $constraint = new IsSubset($set);
-        $this->resetMessage();
         Assert::assertThat($this->value, $constraint, $this->message);
+        $this->resetMessage();
+        return $this;
+    }
+
+    public function isEqualTo(iterable $iterable): self
+    {
+        Assert::assertEquals($iterable, $this->value, $this->message);
+        $this->resetMessage();
+        return $this;
+    }
+
+    public function isNotEqualTo(iterable $iterable): self
+    {
+        Assert::assertNotEquals($iterable, $this->value, $this->message);
+        $this->resetMessage();
         return $this;
     }
 }

@@ -23,7 +23,7 @@ final class ContainsSet extends Constraint
      * @param string $description
      * @param bool $returnResult
      *
-     * @return bool|null
+     * @return bool
      */
     public function evaluate($other, string $description = '', bool $returnResult = false): ?bool
     {
@@ -45,6 +45,9 @@ final class ContainsSet extends Constraint
         return $result;
     }
 
+    /**
+     * @return string
+     */
     public function toString(): string
     {
         return ' contains the subset ' . $this->exporter()->export($this->set);

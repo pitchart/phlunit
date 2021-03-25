@@ -8,8 +8,14 @@ use SebastianBergmann\Exporter\Exporter;
 
 class HttpResponseExporter extends Exporter
 {
+    /**
+     * @var bool
+     */
     private $withHeaders = false;
 
+    /**
+     * @var bool
+     */
     private $withContent = false;
 
     /**

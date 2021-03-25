@@ -13,6 +13,9 @@ trait WithHeaderResponseExporter
      */
     private $responseExporter;
 
+    /**
+     * @return \Pitchart\Phlunit\Exporter\HttpResponseExporter
+     */
     protected function exporter(): Exporter
     {
         if ($this->responseExporter === null) {

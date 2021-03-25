@@ -37,6 +37,9 @@ class HasContentType extends Constraint
         return \sprintf("has expected Content-Type '%s'", $this->contentType);
     }
 
+    /**
+     * @return string
+     */
     protected function failureDescription($other): string
     {
         $contentType = $other instanceof ResponseInterface ? $other->getHeaderLine('Content-Type') : (string) $other;

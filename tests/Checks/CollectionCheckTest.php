@@ -9,8 +9,10 @@ use PHPUnit\Framework\TestCase;
 use Pitchart\Phlunit\Checks\ArrayCheck;
 use Pitchart\Phlunit\Checks\CollectionCheck;
 use Pitchart\Phlunit\Check;
+use Pitchart\Phlunit\Checks\FluentCheck;
+use Tests\Pitchart\Phlunit\CheckTestCase;
 
-class CollectionCheckTest extends TestCase
+class CollectionCheckTest extends CheckTestCase
 {
     public function test_emptyness()
     {
@@ -39,7 +41,7 @@ class CollectionCheckTest extends TestCase
     {
         Check::that([0, 1, 2])
             ->hasElementAt(1)
-            ->and->hasNoElementAt(12)
+            ->and()->hasNoElementAt(12)
             ->hasLength(3)
             ->hasNotLength(12)
             ->contains(1, 2)
@@ -72,10 +74,7 @@ class CollectionCheckTest extends TestCase
         Check::that([1, 2, 3, 4])->containsNoDuplicateItem();
     }
 
-    /**
-     * @test
-     */
-    public function should_check_arrays()
+    public function test_checks_arrays()
     {
         Check::that([0, 1, 2])
             ->hasElementAt(1)
@@ -119,7 +118,14 @@ class CollectionCheckTest extends TestCase
             'containsExactly' => [[1, 2, 3], 'containsExactly', [1, 2, 3]],
             'containsSet' => [[1, 2, 3], 'containsSet', [1, 2]],
             'containsNoDuplicateItem ' => [[1, 2, 3], 'containsNoDuplicateItem', []],
+            'isEqualTo' => [[1, 2, 3], 'isEqualTo', [[1, 2, 3]]],
+            'isNotEqualTo' => [[1, 2, 3], 'isNotEqualTo', [[1, 2]]],
         ];
+    }
+
+    protected function checkClass(): FluentCheck
+    {
+        return Check::that([]);
     }
 
 }

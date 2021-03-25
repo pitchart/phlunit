@@ -7,8 +7,10 @@ namespace Tests\Pitchart\Phlunit\Checks;
 use PHPUnit\Framework\TestCase;
 use Pitchart\Phlunit\Check;
 use Pitchart\Phlunit\Checks\DateTimeCheck;
+use Pitchart\Phlunit\Checks\FluentCheck;
+use Tests\Pitchart\Phlunit\CheckTestCase;
 
-class IntegerCheckTest extends TestCase
+class IntegerCheckTest extends CheckTestCase
 {
     public function test_should_respect_equality()
     {
@@ -51,5 +53,10 @@ class IntegerCheckTest extends TestCase
         ;
 
         Check::that($check)->isAnInstanceOf(DateTimeCheck::class);
+    }
+
+    protected function checkClass(): FluentCheck
+    {
+        return Check::that(42);
     }
 }

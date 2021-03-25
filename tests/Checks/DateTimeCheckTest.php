@@ -9,19 +9,19 @@ use PHPUnit\Framework\Constraint\Exception as ExceptionConstraint;
 use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestCase;
 use Pitchart\Phlunit\Check;
+use Pitchart\Phlunit\Checks\FluentCheck;
+use Pitchart\Phlunit\Expect;
+use Tests\Pitchart\Phlunit\CheckTestCase;
 
-class DateTimeCheckTest extends TestCase
+class DateTimeCheckTest extends CheckTestCase
 {
     public function test_fails_with_identifier_message()
     {
-        try {
-            Check::that(new \DateTime())
-                ->withMessage('toto')
-                ->isSameDayAs(\DateTime::createFromFormat('Y-m-d','1983-04-28'))
-            ;
-        } catch (ExpectationFailedException $exception) {
-            Assert::assertRegExp('/toto/', $exception->getMessage());
-        }
+        Expect::after($this)->anException(ExpectationFailedException::class)->describedByAMessageContaining('toto');
+
+        Check::that(new \DateTime())
+            ->withMessage('toto')
+            ->isSameDayAs(\DateTime::createFromFormat('Y-m-d','1983-04-28'));
     }
 
     public function test_checks_datetime_formats()
@@ -71,12 +71,17 @@ class DateTimeCheckTest extends TestCase
 
     public function test_fails_for_bad_datetime_comparisons()
     {
-        try {
-            Check::that(new \DateTime())
-                ->isSameDayAs(\DateTime::createFromFormat('Y-m-d','1983-04-28'))
-            ;
-        } catch (ExpectationFailedException $exception) {
-            Assert::assertThat($exception, new ExceptionConstraint(ExpectationFailedException::class));
-        }
+        Expect::after($this)->anException(ExpectationFailedException::class);
+
+        Check::that(new \DateTime())
+            ->isSameDayAs(\DateTime::createFromFormat('Y-m-d','1983-04-28'))
+        ;
     }
+
+    protected function checkClass(): FluentCheck
+    {
+        return Check::that(new \DateTime);
+    }
+
+
 }

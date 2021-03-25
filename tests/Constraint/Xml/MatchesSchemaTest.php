@@ -3,6 +3,7 @@
 namespace Tests\Pitchart\Phlunit\Constraint\Xml;
 
 use PHPUnit\Util\Xml;
+use Pitchart\Phlunit\Check;
 use Pitchart\Phlunit\Constraint\Xml\MatchesSchema;
 use Pitchart\Phlunit\Constraint\Xml\XmlUtility;
 use Tests\Pitchart\Phlunit\Constraint\ConstraintTestCase;
@@ -24,33 +25,45 @@ class MatchesSchemaTest extends ConstraintTestCase
     public function test_succeeds_when_sut_is_a_string_matching_provided_format()
     {
         $batman = file_get_contents(TEST_FILES_PATH.'batman.xml');
-        $this->assertTrue($this->constraint->evaluate($batman, '', true));
+
+        $evaluation = $this->constraint->evaluate($batman, '', true);
+
+        Check::that($evaluation)->isTrue();
     }
 
     public function test_succeeds_when_sut_is_a_file_matching_provided_format()
     {
-        $this->assertTrue($this->constraint->evaluate(TEST_FILES_PATH.'batman.xml', '', true));
+        $evaluation = $this->constraint->evaluate(TEST_FILES_PATH.'batman.xml', '', true);
+
+        Check::that($evaluation)->isTrue();
     }
 
     public function test_succeeds_when_sut_is_a_DOMDocument_matching_provided_format()
     {
+        $evaluation = $this->constraint->evaluate(XmlUtility::loadFile(TEST_FILES_PATH.'batman.xml'), '', true);
 
-        $this->assertTrue($this->constraint->evaluate(XmlUtility::loadFile(TEST_FILES_PATH.'batman.xml'), '', true));
+        Check::that($evaluation)->isTrue();
     }
 
     public function test_fails_when_sut_is_more_than_provided_format()
     {
-        $this->assertFalse($this->constraint->evaluate(['name' => 'Batman', 'city' => 'Gotham City'], '', true));
+        $evaluation = $this->constraint->evaluate(['name' => 'Batman', 'city' => 'Gotham City'], '', true);
+
+        Check::that($evaluation)->isFalse();
     }
 
     public function test_fails_when_sut_has_a_property_missing()
     {
-        $this->assertFalse($this->constraint->evaluate(['lastname' => 'Batman'], '', true));
+        $evaluation = $this->constraint->evaluate(['lastname' => 'Batman'], '', true);
+
+        Check::that($evaluation)->isFalse();
     }
 
     public function test_fails_when_sut_do_not_respect_format()
     {
-        $this->assertFalse($this->constraint->evaluate(['name' => null], '', true));
+        $evaluation = $this->constraint->evaluate(['name' => null], '', true);
+
+        Check::that($evaluation)->isFalse();
     }
 
     public function test_fails_with_a_clear_and_complete_error_message()

@@ -20,32 +20,6 @@ use Pitchart\Phlunit\Checks\StringCheck;
 
 trait TypeCheck
 {
-
-    /**
-     * @template T
-     * @param mixed $sut
-     * @psalm-param T of mixed
-     * @psalm-return FluentCheck<T>
-     * @return BooleanCheck|GenericCheck|CallableCheck|CollectionCheck|ResponseCheck|ArrayCheck|DateTimeCheck|StringCheck|ExceptionCheck|FloatCheck|IntegerCheck
-     */
-    public function that(): self
-    {
-        return $this;
-    }
-
-    /**
-     * @template T
-     * @param mixed $sut
-     * @psalm-param T of mixed
-     * @psalm-return FluentCheck<T>
-     * @return BooleanCheck|GenericCheck|CallableCheck|CollectionCheck|ResponseCheck|ArrayCheck|DateTimeCheck|StringCheck|ExceptionCheck|FloatCheck|IntegerCheck
-     */
-    public function andThat($sut): FluentCheck
-    {
-        return Check::that($sut);
-    }
-
-
     public function isString(): self
     {
         Assert::assertIsString($this->value, $this->message);

@@ -6,8 +6,10 @@ namespace Tests\Pitchart\Phlunit\Checks;
 
 use PHPUnit\Framework\TestCase;
 use Pitchart\Phlunit\Check;
+use Pitchart\Phlunit\Checks\FluentCheck;
+use Tests\Pitchart\Phlunit\CheckTestCase;
 
-class GenericCheckTest extends TestCase
+class GenericCheckTest extends CheckTestCase
 {
     public function test_should_respect_equality()
     {
@@ -40,5 +42,11 @@ class GenericCheckTest extends TestCase
     {
         Check::that(new \stdClass())->isNotEmpty();
     }
+
+    protected function checkClass(): FluentCheck
+    {
+        return Check::that(new \stdClass());
+    }
+
 
 }

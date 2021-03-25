@@ -3,6 +3,7 @@
 namespace Tests\Pitchart\Phlunit\Exporter;
 
 use GuzzleHttp\Psr7\Response;
+use Pitchart\Phlunit\Check;
 use Pitchart\Phlunit\Exporter\HttpResponseExporter;
 use PHPUnit\Framework\TestCase;
 
@@ -18,7 +19,9 @@ class HttpResponseExporterTest extends TestCase
 
         $exporter = new HttpResponseExporter(true);
 
-        $this->assertEquals(
+        $exported = $exporter->export($response);
+
+        Check::that($exported)->isEqualTo(
             <<<EOF
 GuzzleHttp\Psr7\Response Object (
     'headers' (
@@ -27,6 +30,6 @@ GuzzleHttp\Psr7\Response Object (
     )
 )
 EOF
-, $exporter->export($response));
+        );
     }
 }

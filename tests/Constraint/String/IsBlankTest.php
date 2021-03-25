@@ -2,6 +2,7 @@
 
 namespace Tests\Pitchart\Phlunit\Constraint\String;
 
+use Pitchart\Phlunit\Check;
 use Pitchart\Phlunit\Constraint\String\IsBlank;
 use Tests\Pitchart\Phlunit\Constraint\ConstraintTestCase;
 use Tests\Pitchart\Phlunit\Constraint\UniqueConstraint;
@@ -26,7 +27,9 @@ class IsBlankTest extends ConstraintTestCase
      */
     public function test_succeeds_when_evaluates_blank_string(string $string)
     {
-        $this->assertTrue($this->constraint->evaluate('', '', true));
+        $evaluation = $this->constraint->evaluate('', '', true);
+
+        Check::that($evaluation)->isTrue();
     }
 
     public function blankStringsProvider()
@@ -39,7 +42,9 @@ class IsBlankTest extends ConstraintTestCase
 
     public function test_fails_when_evaluate_non_digits_string()
     {
-        $this->assertFalse($this->constraint->evaluate(" 12345\n67890a\0", '', true));
+        $evaluation = $this->constraint->evaluate(" 12345\n67890a\0", '', true);
+
+        Check::that($evaluation)->isFalse();
     }
 
     public function test_fails_with_a_clear_and_complete_error_message()

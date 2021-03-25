@@ -6,11 +6,13 @@ use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Psr7\Stream;
 use GuzzleHttp\Psr7\Utils;
 use PHPUnit\Framework\TestCase;
+use Pitchart\Phlunit\Checks\FluentCheck;
 use Pitchart\Phlunit\Checks\ResponseCheck;
 use Pitchart\Phlunit\Check;
 use Psr\Http\Message\ResponseInterface;
+use Tests\Pitchart\Phlunit\CheckTestCase;
 
-class ResponseCheckTest extends TestCase
+class ResponseCheckTest extends CheckTestCase
 {
     /**
      * @param ResponseInterface $sut
@@ -94,6 +96,11 @@ class ResponseCheckTest extends TestCase
         $expectedSchema = TEST_FILES_PATH.'hero.xsd';
 
         Check::that($response)->asXml()->matchesSchema($expectedSchema);
+    }
+
+    protected function checkClass(): FluentCheck
+    {
+        return Check::that(new Response(200));
     }
 
 }

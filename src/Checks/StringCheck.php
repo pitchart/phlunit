@@ -10,6 +10,7 @@ use Pitchart\Phlunit\Checks\Converter\ToInteger;
 use Pitchart\Phlunit\Checks\Converter\ToJson;
 use Pitchart\Phlunit\Checks\Converter\ToXml;
 use Pitchart\Phlunit\Checks\Mixin\ConstraintCheck;
+use Pitchart\Phlunit\Checks\Mixin\FluentChecks;
 use Pitchart\Phlunit\Checks\Mixin\TypeCheck;
 use Pitchart\Phlunit\Checks\Mixin\WithMessage;
 use Pitchart\Phlunit\Constraint\String\EndsWith;
@@ -30,7 +31,7 @@ use Pitchart\Phlunit\Constraint\String\StartsWith;
  */
 class StringCheck implements FluentCheck
 {
-    use TypeCheck, WithMessage, ConstraintCheck,
+    use TypeCheck, FluentChecks, WithMessage, ConstraintCheck,
         ToDateTime, ToInteger, ToJson, ToXml;
 
     /**

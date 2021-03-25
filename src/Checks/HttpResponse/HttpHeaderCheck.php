@@ -5,6 +5,10 @@ namespace Pitchart\Phlunit\Checks\HttpResponse;
 
 use PHPUnit\Framework\Assert;
 use Pitchart\Phlunit\Checks\FluentCheck;
+use Pitchart\Phlunit\Checks\Mixin\ConstraintCheck;
+use Pitchart\Phlunit\Checks\Mixin\FluentChecks;
+use Pitchart\Phlunit\Checks\Mixin\TypeCheck;
+use Pitchart\Phlunit\Checks\Mixin\WithMessage;
 use Pitchart\Phlunit\Constraint\HttpResponse\HeaderContains;
 use Pitchart\Phlunit\Constraint\HttpResponse\HeaderIsEqualTo;
 use Psr\Http\Message\ResponseInterface;
@@ -21,6 +25,7 @@ use Psr\Http\Message\ResponseInterface;
  */
 class HttpHeaderCheck implements FluentCheck
 {
+    use FluentChecks, TypeCheck, WithMessage, ConstraintCheck;
     /**
      * @var ResponseInterface
      */

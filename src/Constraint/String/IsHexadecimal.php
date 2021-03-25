@@ -8,6 +8,9 @@ use PHPUnit\Framework\Constraint\StringMatchesFormatDescription;
 
 class IsHexadecimal extends Constraint
 {
+    /**
+     * @return string
+     */
     public function toString(): string
     {
         return 'is hexadecimal';

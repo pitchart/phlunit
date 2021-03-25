@@ -22,7 +22,7 @@ final class IsSubset extends Constraint
      * @param string $description
      * @param bool $returnResult
      *
-     * @return bool|null
+     * @return bool
      */
     public function evaluate($other, string $description = '', bool $returnResult = false): ?bool
     {
@@ -42,6 +42,9 @@ final class IsSubset extends Constraint
         return $result;
     }
 
+    /**
+     * @return string
+     */
     public function toString(): string
     {
         return ' is a subset of ' . $this->exporter()->export($this->set);

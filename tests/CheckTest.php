@@ -21,6 +21,7 @@ use Pitchart\Phlunit\Checks\IntegerCheck;
 use Pitchart\Phlunit\Checks\ResponseCheck;
 use Pitchart\Phlunit\Checks\StringCheck;
 use Pitchart\Phlunit\Check;
+use Pitchart\Phlunit\Expect;
 use Psr\Http\Message\ResponseInterface;
 use Tests\Pitchart\Phlunit\Fixture\Custom;
 use Tests\Pitchart\Phlunit\Fixture\CustomChecks;
@@ -61,10 +62,7 @@ class CheckTest extends TestCase
         ];
     }
 
-    /**
-     * @test
-     */
-    public function should_check_for_types()
+    public function test_checks_for_types()
     {
         $resource = fopen('php://temp', 'r');
         Check::that(1)->isInt();
@@ -82,13 +80,13 @@ class CheckTest extends TestCase
 
     public function test_has_syntactic_sugar_to_help_writing_close_to_plain_english_sentenses()
     {
-        Check::that(1)->isGreaterThan(0)->and->isLessThan(2);
-        Check::that(function() {return 2;})->hasAResult()->which->isLessThan(3);
+        Check::that(1)->isGreaterThan(0)->and()->isLessThan(2);
+        Check::that(function() {return 2;})->hasAResult()->which()->isLessThan(3);
 
-        $this->expectException(\Error::class);
-        $this->expectExceptionMessage(sprintf('Undefined property: %s::$unavailableWord', IntegerCheck::class));
+        Expect::after($this)->anException(\Error::class)
+            ->describedBy(sprintf('Call to undefined method %s::unavailableMethod()', IntegerCheck::class));
 
-        Check::that(2)->isLessThan(3)->unavailableWord->isGreaterThan(1);
+        Check::that(2)->isLessThan(3)->unavailableMethod()->isGreaterThan(1);
     }
 
     public function test_can_be_extended_using_constraints()
