@@ -53,7 +53,7 @@ class FloatCheckTest extends CheckTestCase
         ;
     }
 
-    public function checkClass(): FluentCheck
+    protected function checkClass(): FluentCheck
     {
         return Check::that(4.2);
     }

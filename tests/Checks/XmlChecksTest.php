@@ -94,7 +94,7 @@ class XmlChecksTest extends CheckTestCase
             </hero>';
     }
 
-    public function checkClass(): FluentCheck
+    protected function checkClass(): FluentCheck
     {
         return Check::that($this->superman())->asXml();
     }

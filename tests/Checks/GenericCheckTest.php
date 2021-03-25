@@ -43,7 +43,7 @@ class GenericCheckTest extends CheckTestCase
         Check::that(new \stdClass())->isNotEmpty();
     }
 
-    public function checkClass(): FluentCheck
+    protected function checkClass(): FluentCheck
     {
         return Check::that(new \stdClass());
     }

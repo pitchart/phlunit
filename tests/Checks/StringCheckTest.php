@@ -175,7 +175,7 @@ class StringCheckTest extends CheckTestCase
         Check::that($check)->isAnInstanceOf(JsonCheck::class);
     }
 
-    public function checkClass(): FluentCheck
+    protected function checkClass(): FluentCheck
     {
         return Check::that('tdd');
     }

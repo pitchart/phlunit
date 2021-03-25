@@ -19,7 +19,7 @@ class BooleanCheckTest extends CheckTestCase
         Check::that(false)->isFalse();
     }
 
-    public function checkClass(): FluentCheck
+    protected function checkClass(): FluentCheck
     {
         return Check::that(true);
     }

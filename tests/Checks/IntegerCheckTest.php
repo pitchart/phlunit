@@ -55,7 +55,7 @@ class IntegerCheckTest extends CheckTestCase
         Check::that($check)->isAnInstanceOf(DateTimeCheck::class);
     }
 
-    public function checkClass(): FluentCheck
+    protected function checkClass(): FluentCheck
     {
         return Check::that(42);
     }

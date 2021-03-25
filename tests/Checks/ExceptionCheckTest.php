@@ -24,7 +24,7 @@ class ExceptionCheckTest extends CheckTestCase
         Check::that(new \LogicException('logic exception', 200))->isDescribedBy('logic exception');
     }
 
-    public function checkClass(): FluentCheck
+    protected function checkClass(): FluentCheck
     {
         return Check::that(new \Exception);
     }

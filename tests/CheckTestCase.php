@@ -10,7 +10,7 @@ use Pitchart\Phlunit\Checks\FluentCheck;
 
 abstract class CheckTestCase extends TestCase
 {
-    abstract public function checkClass(): FluentCheck;
+    abstract protected function checkClass(): FluentCheck;
 
     public function test_has_syntactic_sugar_that_that_returns_current_instance()
     {

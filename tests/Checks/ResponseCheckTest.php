@@ -98,7 +98,7 @@ class ResponseCheckTest extends CheckTestCase
         Check::that($response)->asXml()->matchesSchema($expectedSchema);
     }
 
-    public function checkClass(): FluentCheck
+    protected function checkClass(): FluentCheck
     {
         return Check::that(new Response(200));
     }
