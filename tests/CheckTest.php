@@ -21,6 +21,7 @@ use Pitchart\Phlunit\Checks\IntegerCheck;
 use Pitchart\Phlunit\Checks\ResponseCheck;
 use Pitchart\Phlunit\Checks\StringCheck;
 use Pitchart\Phlunit\Check;
+use Pitchart\Phlunit\Expect;
 use Psr\Http\Message\ResponseInterface;
 use Tests\Pitchart\Phlunit\Fixture\Custom;
 use Tests\Pitchart\Phlunit\Fixture\CustomChecks;
@@ -82,8 +83,8 @@ class CheckTest extends TestCase
         Check::that(1)->isGreaterThan(0)->and()->isLessThan(2);
         Check::that(function() {return 2;})->hasAResult()->which()->isLessThan(3);
 
-        $this->expectException(\Error::class);
-        $this->expectExceptionMessage(sprintf('Call to undefined method %s::unavailableMethod()', IntegerCheck::class));
+        Expect::after($this)->anException(\Error::class)
+            ->describedBy(sprintf('Call to undefined method %s::unavailableMethod()', IntegerCheck::class));
 
         Check::that(2)->isLessThan(3)->unavailableMethod()->isGreaterThan(1);
     }
