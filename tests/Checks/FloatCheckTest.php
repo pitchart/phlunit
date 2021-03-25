@@ -11,17 +11,17 @@ use Tests\Pitchart\Phlunit\CheckTestCase;
 class FloatCheckTest extends CheckTestCase
 {
 
-    public function test_should_respect_equality()
+    public function test_respects_equality()
     {
         Check::that(1.5)->isEqualTo(1.5);
     }
 
-    public function test_should_respect_inequality()
+    public function test_respects_inequality()
     {
         Check::that(1.5)->isNotEqualTo(2);
     }
 
-    public function test_should_respect_empty()
+    public function test_respects_empty()
     {
         Check::that(0.)->isEmpty();
     }
@@ -29,12 +29,12 @@ class FloatCheckTest extends CheckTestCase
     /**
      * @param $value
      */
-    public function test_should_respect_not_empty()
+    public function test_respects_not_empty()
     {
         Check::that(1.52)->isNotEmpty();
     }
 
-    public function test_should_respect_comparisons()
+    public function test_respects_comparisons()
     {
         Check::that(1.5)
             ->isGreaterThan(0)
