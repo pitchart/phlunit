@@ -193,7 +193,7 @@ class StringCheck implements FluentCheck
 
     public function matches(string $pattern): self
     {
-        Assert::assertRegExp($pattern, $this->value, $this->message);
+        Assert::assertMatchesRegularExpression($pattern, $this->value, $this->message);
         $this->resetMessage();
         return $this;
     }

@@ -27,7 +27,7 @@ class XmlCheck implements FluentCheck
      */
     public function __construct($value)
     {
-        $this->value = XmlUtility::load($value);
+        $this->value = $value instanceof \DOMDocument ? $value->saveXML() : $value;
     }
 
     public function isEqualTo($expected): self
