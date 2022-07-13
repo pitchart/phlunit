@@ -3,7 +3,6 @@
 
 namespace Tests\Pitchart\Phlunit\Fixture;
 
-
 class Person implements \JsonSerializable
 {
     private $name;
@@ -18,10 +17,9 @@ class Person implements \JsonSerializable
         $this->name = $name;
     }
 
-    function jsonSerialize()
+
+    public function jsonSerialize(): mixed
     {
         return ['name' => $this->name];
     }
-
-
 }

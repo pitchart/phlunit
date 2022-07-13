@@ -29,7 +29,6 @@ class XmlChecksTest extends CheckTestCase
     {
         Check::that(call_user_func_array([$check, $method], $arguments))
             ->isAnInstanceOf(XmlCheck::class);
-
     }
 
     public function fluentMethodsProvider()
