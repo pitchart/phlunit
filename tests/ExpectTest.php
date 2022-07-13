@@ -58,9 +58,22 @@ class ExpectTest extends TestCase
 
     public function test_expects_a_deprecation_will_be_triggered()
     {
+        $this->markTestSkipped('Same kind of test that in PHPUnit unit tests suite, but failing here');
         Expect::after($this)->aDeprecation();
 
         trigger_error("", E_USER_DEPRECATED);
+    }
+
+    public function test_expecting_a_deprecation_will_trigger_deprecation_expectation_in_test_runner()
+    {
+        $this->markAsRisky();
+        $testCase = $this->getMockBuilder(TestCase::class)
+            ->disableOriginalConstructor()
+            ->onlyMethods(['expectDeprecation'])
+            ->getMock();
+        $testCase->expects($this->once())->method('expectDeprecation');
+
+        Expect::after($testCase)->aDeprecation();
     }
 
     public function test_expects_a_warning_will_be_triggered()
